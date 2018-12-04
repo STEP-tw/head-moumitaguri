@@ -1,5 +1,5 @@
 const { equal, deepEqual } = require('assert');
-const { readFile, split, getFirstNChars } = require('../src/lib.js');
+const { readFile, split, getFirstNChars, getFile } = require('../src/lib.js');
 
 const add = function(num1,num2){
   return num1 + num2 ;
@@ -31,5 +31,21 @@ describe('getFirstNChars()', function(){
   });
   it('should return string of n characters when input string has n chars and numberOfChars > n', function(){
     deepEqual(getFirstNChars('day',4),'day');
+  });
+});
+
+
+describe('getFile => fileContentInLines', function(){
+  it('should return an array with empty string when fileContent is empty string', function(){
+    let file = getFile('abc','');
+    deepEqual(file.fileContentInLines(),['']);
+  });
+  it('should return an array with given fileContent in  one line', function(){
+    file = getFile('abc','get a file');
+    deepEqual(file.fileContentInLines(),['get a file']);
+  });
+  it('should return an array with given fileContent in lines', function(){
+    file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
+    deepEqual(file.fileContentInLines(),['get a file','save it','edit it','again save it']);
   });
 });

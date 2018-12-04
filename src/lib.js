@@ -12,4 +12,15 @@ const getFirstNChars = function(string,numberOfChars){
   return string.slice(0,numberOfChars);
 }
 
-module.exports = { readFile, split, getFirstNChars };
+const getFile = function(path,fileContent){
+  let fileDetails = { path,fileContent };
+  fileDetails.fileContentInLines = extractFileContentInLines.bind(fileDetails);
+  return fileDetails;
+}
+
+const extractFileContentInLines = function(){
+  return this.fileContent.split('\n');
+}
+
+
+module.exports = { readFile, split, getFirstNChars, getFile };
