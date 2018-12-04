@@ -1,5 +1,5 @@
-const readFile = function(func,path,type){
-  return func(path,type);
+const readFile = function(reader,path,encodingType){
+  return reader(path,encodingType);
 }
 
 const split = function(string){
