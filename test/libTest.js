@@ -1,5 +1,5 @@
 const { equal, deepEqual } = require('assert');
-const { readFile, split, getFirstNChars, getFile } = require('../src/lib.js');
+const { readFile, split, getFirstNChars, getFile, getFirstNLines } = require('../src/lib.js');
 
 const add = function(num1,num2){
   return num1 + num2 ;
@@ -47,5 +47,21 @@ describe('getFile => fileContentInLines', function(){
   it('should return an array with given fileContent in lines', function(){
     file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
     deepEqual(file.fileContentInLines(),['get a file','save it','edit it','again save it']);
+  });
+});
+
+
+describe('getFirstNLines', function(){
+  it('should return empty string for empty file', function(){
+    file = getFile('abc','');
+    deepEqual(getFirstNLines(file,0),'');
+  });
+  it('should return one line of the given file ', function(){
+    file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
+    deepEqual(getFirstNLines(file,1),'get a file');
+  });
+  it('should return one line of the given file ', function(){
+    file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
+    deepEqual(getFirstNLines(file,3),'get a file\nsave it\nedit it');
   });
 });
