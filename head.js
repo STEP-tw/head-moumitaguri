@@ -14,5 +14,14 @@
   node ./head.js -c 5 file1 file2
 */
 
-const { readFile } = require('./src/lib.js');
-const fs = require('fs');
+const { readFile,getFile,getFirstNLines } = require('./src/lib.js');
+const readFileSync = require('fs').readFileSync;
+
+const main = function(){
+  let path = process.argv[2];
+  let fileContent = readFile(readFileSync,path,'utf8');
+  let fileDetails = getFile(path,fileContent);
+  console.log(getFirstNLines(fileDetails));
+}
+
+main();

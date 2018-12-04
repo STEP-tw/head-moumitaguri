@@ -12,7 +12,7 @@ const getFirstNChars = function(string,numberOfChars){
   return string.slice(0,numberOfChars);
 }
 
-const getFirstNLines = function(fileDetails,numberOfLines){
+const getFirstNLines = function(fileDetails,numberOfLines = 10){
   let fileContent = fileDetails.fileContentInLines()
   return fileContent.slice(0,numberOfLines).join('\n');
 }

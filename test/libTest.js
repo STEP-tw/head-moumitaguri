@@ -60,8 +60,12 @@ describe('getFirstNLines', function(){
     file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
     deepEqual(getFirstNLines(file,1),'get a file');
   });
-  it('should return one line of the given file ', function(){
+  it('should return n lines  of the given file when n is given ', function(){
     file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
     deepEqual(getFirstNLines(file,3),'get a file\nsave it\nedit it');
+  });
+  it('should return all  lines of the given file when numberOfLines is not provided as it is default as 10 ', function(){
+    file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
+    deepEqual(getFirstNLines(file),'get a file\nsave it\nedit it\nagain save it');
   });
 });
