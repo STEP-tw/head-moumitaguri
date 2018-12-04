@@ -8,4 +8,8 @@ const split = function(string){
   }
 }
 
-module.exports = { readFile, split };
+const getFirstNChars = function(string,numberOfChars){
+  return string.slice(0,numberOfChars);
+}
+
+module.exports = { readFile, split, getFirstNChars };

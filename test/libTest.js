@@ -1,5 +1,5 @@
 const { equal, deepEqual } = require('assert');
-const { readFile, split } = require('../src/lib.js');
+const { readFile, split, getFirstNChars } = require('../src/lib.js');
 
 const add = function(num1,num2){
   return num1 + num2 ;
@@ -21,3 +21,15 @@ describe('split()', function(){
   });
 });
 
+
+describe('getFirstNChars()', function(){
+  it('should return empty string when input is empty string and numberOfChars = 0', function(){
+    deepEqual(getFirstNChars('',0),'');
+  });
+  it('should return string of n characters when numberOfChars = n', function(){
+    deepEqual(getFirstNChars('day',1),'d');
+  });
+  it('should return string of n characters when input string has n chars and numberOfChars > n', function(){
+    deepEqual(getFirstNChars('day',4),'day');
+  });
+});
