@@ -1,5 +1,5 @@
 const { equal, deepEqual } = require('assert');
-const { readFile, split, getFirstNChars, getFile, getFirstNLines, extractOptions } = require('../src/lib.js');
+const { readFile, split, getFirstNChars, getFile, getFirstNLines, extractOptions,displayFileName } = require('../src/lib.js');
 
 const add = function(num1,num2){
   return num1 + num2 ;
@@ -80,5 +80,12 @@ describe('extractOptions() ->extract the options from the given inputs', functio
   });
   it('should return -n -c options in array when found in input', function(){
     deepEqual(extractOptions(['node','x.js','-c','-n']),['-c','-n']);
+  });
+});
+
+
+describe('displayFileName()', function(){
+  it('should print ==> text  <== for input "text"', function(){
+    deepEqual(displayFileName('text'),'==> text <==');
   });
 });

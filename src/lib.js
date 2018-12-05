@@ -36,4 +36,8 @@ const extractOptions = function(args){
   return options;
 }
 
-module.exports = { readFile, split, getFirstNChars, getFile, getFirstNLines, extractOptions };
+const displayFileName = function(fileName){
+  return '==> '+fileName+' <==';
+}
+
+module.exports = { readFile, split, getFirstNChars, getFile, getFirstNLines, extractOptions, displayFileName };
