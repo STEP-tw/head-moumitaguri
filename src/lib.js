@@ -2,14 +2,12 @@ const readFile = function(reader,path,encodingType){
   return reader(path,encodingType);
 }
 
-const getFirstNChars = function(fileDetails,numberOfChars){
-  let fileContent = fileDetails.fileContent;
+const getFirstNChars = function(fileContent,numberOfChars){
   return fileContent.slice(0,numberOfChars);
 }
 
-const getFirstNLines = function(fileDetails,numberOfLines = 10){
-  let fileContent = fileDetails.fileContentInLines()
-  return fileContent.slice(0,numberOfLines).join('\n');
+const getFirstNLines = function(fileContent,numberOfLines = 10){
+  return fileContent.split("\n").slice(0,numberOfLines).join('\n');
 }
 
 const getFile = function(path,fileContent){

@@ -15,16 +15,13 @@ describe('readFile()', function(){
 
 describe('getFirstNChars()', function(){
   it('should return empty string when input is empty string and numberOfChars = 0', function(){
-    let file = getFile('abc','');
-    deepEqual(getFirstNChars(file,0),'');
+    deepEqual(getFirstNChars('file',0),'');
   });
   it('should return string of n characters when numberOfChars = n', function(){
-    file = getFile('abc','day');
-    deepEqual(getFirstNChars(file,1),'d');
+    deepEqual(getFirstNChars('file',1),'f');
   });
   it('should return string of n characters when input string has n chars and numberOfChars > n', function(){
-    file = getFile('abc','day');
-    deepEqual(getFirstNChars(file,4),'day');
+    deepEqual(getFirstNChars('file',5),'file');
   });
 });
 
@@ -46,21 +43,15 @@ describe('getFile => fileContentInLines', function(){
 
 
 describe('getFirstNLines', function(){
-  it('should return empty string for empty file', function(){
-    file = getFile('abc','');
-    deepEqual(getFirstNLines(file,0),'');
-  });
-  it('should return one line of the given file ', function(){
-    file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
-    deepEqual(getFirstNLines(file,1),'get a file');
+    content = 'get a file\nsave it\nedit it\nagain save it';
+  it('should return one line for input 1 ', function(){
+    deepEqual(getFirstNLines(content,1),'get a file');
   });
   it('should return n lines  of the given file when n is given ', function(){
-    file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
-    deepEqual(getFirstNLines(file,3),'get a file\nsave it\nedit it');
+    deepEqual(getFirstNLines(content,3),'get a file\nsave it\nedit it');
   });
   it('should return all  lines of the given file when numberOfLines is not provided as it is default as 10 ', function(){
-    file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
-    deepEqual(getFirstNLines(file),'get a file\nsave it\nedit it\nagain save it');
+    deepEqual(getFirstNLines(content),'get a file\nsave it\nedit it\nagain save it');
   });
 });
 
