@@ -12,13 +12,22 @@
   node ./head.js -c 5 file1
   node ./head.js -c5 file1 file2
   node ./head.js -c 5 file1 file2
-*/
+  */
 
-const { readFile,getFile,getFirstNLines } = require('./src/lib.js');
+const { readFile,getFile,getFirstNLines,extractOptions } = require('./src/lib.js');
+
+const { parseInputs } = require('./src/util.js');
 const readFileSync = require('fs').readFileSync;
 
 const main = function(){
-  let path = './'+process.argv[2];
+  let headArgs = process.argv.slice(2);
+  let option = extractOptions(headArgs);
+  let files = headArgs.slice(1);
+
+  let parsedInputs = parseInputs(files,option);
+  console.log(parsedInputs.files[0]);
+
+  let path = './'+parsedInputs.files[0];
   let fileContent = readFile(readFileSync,path,'utf8');
   let fileDetails = getFile(path,fileContent);
   console.log(getFirstNLines(fileDetails));
