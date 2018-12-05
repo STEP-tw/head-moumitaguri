@@ -1,5 +1,5 @@
 const { equal, deepEqual } = require('assert');
-const { readFile, split, getFirstNChars, getFile, getFirstNLines, extractOptions,displayFileName } = require('../src/lib.js');
+const { readFile, getFirstNChars, getFile, getFirstNLines, displayFileName } = require('../src/lib.js');
 
 const add = function(num1,num2){
   return num1 + num2 ;
@@ -9,15 +9,6 @@ describe('readFile()', function(){
   it('should take a function and two arguments as input and return the evaluated value of the input function for the given arguments', function(){
     
     equal(readFile(add,1,2),3);
-  });
-});
-
-
-describe('split()', function(){
-  it('should take a string and a separator as input and split the given string by the given separator', function(){
-   let spliter = split("take a\n break");
-    deepEqual(spliter(" "),['take','a\n','break']);
-    deepEqual(spliter("\n"),['take a',' break']);
   });
 });
 
@@ -70,16 +61,6 @@ describe('getFirstNLines', function(){
   it('should return all  lines of the given file when numberOfLines is not provided as it is default as 10 ', function(){
     file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
     deepEqual(getFirstNLines(file),'get a file\nsave it\nedit it\nagain save it');
-  });
-});
-
-
-describe('extractOptions() ->extract the options from the given inputs', function(){
-  it('should return false  when -n and -c option not found', function(){
-    deepEqual(extractOptions(['node','x.js','-p']),false);
-  });
-  it('should return -n -c options in array when found in input', function(){
-    deepEqual(extractOptions(['node','x.js','-c','-n']),['-c','-n']);
   });
 });
 
