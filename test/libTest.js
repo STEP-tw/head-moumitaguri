@@ -72,8 +72,8 @@ describe('getFirstNLines', function(){
 
 
 describe('extractOptions() ->extract the options from the given inputs', function(){
-  it('should return empty array when -n and -c option not found', function(){
-    deepEqual(extractOptions(['node','x.js','-p']),[]);
+  it('should return false  when -n and -c option not found', function(){
+    deepEqual(extractOptions(['node','x.js','-p']),false);
   });
   it('should return -n -c options in array when found in input', function(){
     deepEqual(extractOptions(['node','x.js','-c','-n']),['-c','-n']);

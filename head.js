@@ -22,15 +22,18 @@ const readFileSync = require('fs').readFileSync;
 const main = function(){
   let headArgs = process.argv.slice(2);
   let option = extractOptions(headArgs);
-  let files = headArgs.slice(1);
+  let files = headArgs;
+
+  if(option){
+    files = headArgs.slice(1);
+  }
 
   let parsedInputs = parseInputs(files,option);
-  console.log(parsedInputs.files[0]);
 
   let path = './'+parsedInputs.files[0];
   let fileContent = readFile(readFileSync,path,'utf8');
   let fileDetails = getFile(path,fileContent);
-  console.log(getFirstNLines(fileDetails));
+  console.log(getFirstNLines(fileDetails,parsedInputs.optionValue));
 }
 
 main();

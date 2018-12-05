@@ -29,6 +29,9 @@ const extractFileContentInLines = function(){
 
 const extractOptions = function(args){
   let options = args.filter((arg) => arg.startsWith('-n')||arg.startsWith('-c'));
+  if(options == 0){
+    return false;
+  }
   return options;
 }
 
