@@ -14,31 +14,15 @@
   node ./head.js -c 5 file1 file2
   */
 
-const { readFile,getFile,getFirstNLines,extractOptions,getFirstNChars } = require('./src/lib.js');
+const { head } = require('./src/lib.js');
 
 const { parseInputs } = require('./src/util.js');
-const readFileSync = require('fs').readFileSync;
+const { readFileSync } = require('fs');
 
 const main = function(){
   let headArgs = process.argv.slice(2);
-  let option = extractOptions(headArgs);
-  let files = headArgs;
-
-  if(option){
-    files = headArgs.slice(option.length);
-  }
-
-  let parsedInputs = parseInputs(files,option);
-
-  let path = './'+parsedInputs.files[0];
-  let fileContent = readFile(readFileSync,path,'utf8');
-  let fileDetails = getFile(path,fileContent);
-  if(parsedInputs.option == '-c'){
-    console.log(getFirstNChars(fileDetails,parsedInputs.optionValue));
-  }
-  if(parsedInputs.option == '-n'){
-    console.log(getFirstNLines(fileDetails,parsedInputs.optionValue));
-  }
+  let parsedInputs = parseInputs(headArgs);
+  console.log(head(readFileSync,parsedInputs));
 }
 
 main();
