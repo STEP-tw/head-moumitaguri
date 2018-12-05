@@ -25,7 +25,7 @@ const main = function(){
   let files = headArgs;
 
   if(option){
-    files = headArgs.slice(1);
+    files = headArgs.slice(option.length);
   }
 
   let parsedInputs = parseInputs(files,option);

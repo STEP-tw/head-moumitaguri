@@ -29,7 +29,7 @@ const extractFileContentInLines = function(){
 }
 
 const extractOptions = function(args){
-  let options = args.filter((arg) => arg.startsWith('-n')||arg.startsWith('-c')||arg.startsWith('-'));
+  let options = args.filter((arg) => arg.startsWith('-n')||arg.startsWith('-c')||arg == '-' || (arg.charCodeAt(arg.length-1) >=48 && arg.charCodeAt(arg.length-1) <= 57));
   if(options == 0){
     return false;
   }

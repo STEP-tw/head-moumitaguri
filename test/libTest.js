@@ -24,13 +24,16 @@ describe('split()', function(){
 
 describe('getFirstNChars()', function(){
   it('should return empty string when input is empty string and numberOfChars = 0', function(){
-    deepEqual(getFirstNChars('',0),'');
+    let file = getFile('abc','');
+    deepEqual(getFirstNChars(file,0),'');
   });
   it('should return string of n characters when numberOfChars = n', function(){
-    deepEqual(getFirstNChars('day',1),'d');
+    file = getFile('abc','day');
+    deepEqual(getFirstNChars(file,1),'d');
   });
   it('should return string of n characters when input string has n chars and numberOfChars > n', function(){
-    deepEqual(getFirstNChars('day',4),'day');
+    file = getFile('abc','day');
+    deepEqual(getFirstNChars(file,4),'day');
   });
 });
 
