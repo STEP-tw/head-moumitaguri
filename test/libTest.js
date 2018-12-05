@@ -1,5 +1,5 @@
 const { equal, deepEqual } = require('assert');
-const { readFile, split, getFirstNChars, getFile, getFirstNLines } = require('../src/lib.js');
+const { readFile, split, getFirstNChars, getFile, getFirstNLines, extractOptions } = require('../src/lib.js');
 
 const add = function(num1,num2){
   return num1 + num2 ;
@@ -67,5 +67,15 @@ describe('getFirstNLines', function(){
   it('should return all  lines of the given file when numberOfLines is not provided as it is default as 10 ', function(){
     file = getFile('abc','get a file\nsave it\nedit it\nagain save it');
     deepEqual(getFirstNLines(file),'get a file\nsave it\nedit it\nagain save it');
+  });
+});
+
+
+describe('extractOptions() ->extract the options from the given inputs', function(){
+  it('should return empty array when -n and -c option not found', function(){
+    deepEqual(extractOptions(['node','x.js','-p']),[]);
+  });
+  it('should return -n -c options in array when found in input', function(){
+    deepEqual(extractOptions(['node','x.js','-c','-n']),['-c','-n']);
   });
 });
