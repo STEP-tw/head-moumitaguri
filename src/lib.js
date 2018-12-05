@@ -29,7 +29,22 @@ const extractFiles = function(readFunc,{option,optionValue,files}){
   }).join(joinWith);
 }
 
+const illegalOption = 'head: illegal option -- '
+const illegalUsage = 'usage: head [-n lines | -c bytes] [file ...]'
+
+const illegalByteCount = 'head: illegal byte count -- ';
+const illegalLineCount = 'head: illegal line count -- ';
+
 const head = function(readFunc,{option,optionValue,files}){
+  if(option != 'n' && option != 'c'){
+    return illegalOption + option + "\n" + illegalUsage;
+  }
+  if(optionValue < 1 || isNaN(optionValue - 0)){
+    if(option == 'n')
+      return illegalLineCount + optionValue ;
+    return illegalByteCount + optionValue ;
+  }
+
   return extractFiles(readFunc,{option,optionValue,files});
 }
 
