@@ -8,8 +8,9 @@ const split = function(string){
   }
 }
 
-const getFirstNChars = function(string,numberOfChars){
-  return string.slice(0,numberOfChars);
+const getFirstNChars = function(fileDetails,numberOfChars){
+  let fileContent = fileDetails.fileContent;
+  return fileContent.slice(0,numberOfChars);
 }
 
 const getFirstNLines = function(fileDetails,numberOfLines = 10){
@@ -28,7 +29,7 @@ const extractFileContentInLines = function(){
 }
 
 const extractOptions = function(args){
-  let options = args.filter((arg) => arg.startsWith('-n')||arg.startsWith('-c'));
+  let options = args.filter((arg) => arg.startsWith('-n')||arg.startsWith('-c')||arg.startsWith('-'));
   if(options == 0){
     return false;
   }

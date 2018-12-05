@@ -14,7 +14,7 @@
   node ./head.js -c 5 file1 file2
   */
 
-const { readFile,getFile,getFirstNLines,extractOptions } = require('./src/lib.js');
+const { readFile,getFile,getFirstNLines,extractOptions,getFirstNChars } = require('./src/lib.js');
 
 const { parseInputs } = require('./src/util.js');
 const readFileSync = require('fs').readFileSync;
@@ -33,7 +33,12 @@ const main = function(){
   let path = './'+parsedInputs.files[0];
   let fileContent = readFile(readFileSync,path,'utf8');
   let fileDetails = getFile(path,fileContent);
-  console.log(getFirstNLines(fileDetails,parsedInputs.optionValue));
+  if(parsedInputs.option == '-c'){
+    console.log(getFirstNChars(fileDetails,parsedInputs.optionValue));
+  }
+  if(parsedInputs.option == '-n'){
+    console.log(getFirstNLines(fileDetails,parsedInputs.optionValue));
+  }
 }
 
 main();
