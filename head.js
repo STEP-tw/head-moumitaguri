@@ -17,12 +17,12 @@
 const { head } = require('./src/lib.js');
 
 const { parseInputs } = require('./src/util.js');
-const { readFileSync } = require('fs');
+const { readFileSync,existsSync } = require('fs');
 
 const main = function(){
   let headArgs = process.argv.slice(2);
   let parsedInputs = parseInputs(headArgs);
-  console.log(head(readFileSync,parsedInputs));
+  console.log(head(existsSync,readFileSync,parsedInputs));
 }
 
 main();

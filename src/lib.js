@@ -10,9 +10,13 @@ const displayFileName = function(fileName){
   return '==> '+fileName+' <==';
 }
 
-const extractFiles = function(readFunc,{option,optionValue,files}){
+const notFound = ': No such file or directory';
+const extractFiles = function(doesExist,readFunc,{option,optionValue,files}){
   let joinWith = "\n\n";
   return files.map((file) => {
+    if(!doesExist(file)){
+      return 'head: '+file+notFound;
+    }
     let fileHeader = displayFileName(file)+"\n";
     let fileContent = readFunc(file,'utf8');
     let extractedContent;
@@ -35,7 +39,7 @@ const illegalUsage = 'usage: head [-n lines | -c bytes] [file ...]'
 const illegalByteCount = 'head: illegal byte count -- ';
 const illegalLineCount = 'head: illegal line count -- ';
 
-const head = function(readFunc,{option,optionValue,files}){
+const head = function(doesExist,readFunc,{option,optionValue,files}){
   if(option != 'n' && option != 'c'){
     return illegalOption + option + "\n" + illegalUsage;
   }
@@ -45,7 +49,7 @@ const head = function(readFunc,{option,optionValue,files}){
     return illegalByteCount + optionValue ;
   }
 
-  return extractFiles(readFunc,{option,optionValue,files});
+  return extractFiles(doesExist,readFunc,{option,optionValue,files});
 }
 
 module.exports = { getFirstNChars,getFirstNLines, displayFileName, extractFiles, head };
