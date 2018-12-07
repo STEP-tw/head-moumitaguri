@@ -32,4 +32,9 @@ describe('parseInputs() => should return an object having option : n ,optionValu
     parsedInput = { option : 'n', optionValue : 5, files : ['file','file2'] };
     deepEqual(parseInputs(headArgs),parsedInput);
   });
+  it('should work for input => headArgs = ["--","file","file2"]', function(){
+    headArgs = ['--','file','file2'];
+    parsedInput = { option : 'n', optionValue : 10, files : ['file','file2'] };
+    deepEqual(parseInputs(headArgs),parsedInput);
+  });
 });
