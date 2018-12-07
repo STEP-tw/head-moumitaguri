@@ -14,15 +14,15 @@
   node ./head.js -c 5 file1 file2
   */
 
-const { head } = require('./src/lib.js');
+const { head } = require("./src/lib.js");
 
-const { parseInputs } = require('./src/util.js');
-const { readFileSync,existsSync } = require('fs');
+const { parseInputs } = require("./src/util.js");
+const { readFileSync, existsSync } = require("fs");
 
-const main = function(){
+const main = function() {
   let headArgs = process.argv.slice(2);
   let parsedInputs = parseInputs(headArgs);
-  console.log(head(existsSync,readFileSync,parsedInputs));
-}
+  console.log(head(existsSync, readFileSync, parsedInputs));
+};
 
 main();
