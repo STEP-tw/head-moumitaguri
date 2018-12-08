@@ -17,7 +17,7 @@ const notFound = ": No such file or directory";
 const extractFiles = function(
   doesExist,
   readFunc,
-  { option, optionValue, files }
+  { option, count, files }
 ) {
   let joinWith = "\n\n";
   return files
@@ -29,10 +29,10 @@ const extractFiles = function(
       let fileContent = readFunc(file, "utf8");
       let extractedContent;
       if (option == "n") {
-        extractedContent = getFirstNLines(fileContent, optionValue);
+        extractedContent = getFirstNLines(fileContent, count);
       }
       if (option == "c") {
-        extractedContent = getFirstNChars(fileContent, optionValue);
+        extractedContent = getFirstNChars(fileContent, count);
       }
       if (files.length > 1) {
         return fileHeader + extractedContent;
@@ -48,16 +48,25 @@ const illegalUsage = "usage: head [-n lines | -c bytes] [file ...]";
 const illegalByteCount = "head: illegal byte count -- ";
 const illegalLineCount = "head: illegal line count -- ";
 
-const head = function(doesExist, readFunc, { option, optionValue, files }) {
-  if (option != "n" && option != "c") {
+
+const isOptionIllegal = function(option){
+  return option != "n" && option != "c";
+}
+
+const isCountIllegal = function(count){
+  return (count < 1 || isNaN(count - 0));
+}
+
+const head = function(doesExist, readFunc, { option, count, files }) {
+  if (isOptionIllegal(option)) {
     return illegalOption + option + "\n" + illegalUsage;
   }
-  if (optionValue < 1 || isNaN(optionValue - 0)) {
-    if (option == "n") return illegalLineCount + optionValue;
-    return illegalByteCount + optionValue;
+  if(isCountIllegal(count)){
+    if (option == "n") return illegalLineCount + count;
+    return illegalByteCount + count;
   }
 
-  return extractFiles(doesExist, readFunc, { option, optionValue, files });
+  return extractFiles(doesExist, readFunc, { option, count, files });
 };
 
 module.exports = {

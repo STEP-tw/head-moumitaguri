@@ -54,20 +54,20 @@ doesExist = function(file) {
 describe("extractFiles()", function() {
   file = "0\n1\n2\n3\n4\n5\n6\n7\n8\n9";
   it("should return  given number of lines of file", function() {
-    args = { option: "n", optionValue: 1, files: [file] };
+    args = { option: "n", count: 1, files: [file] };
     deepEqual(extractFiles(doesExist, readFunc, args), "0");
   });
   it("should return  given number of chars of file", function() {
-    args = { option: "c", optionValue: 1, files: [file] };
+    args = { option: "c", count: 1, files: [file] };
     deepEqual(extractFiles(doesExist, readFunc, args), "0");
   });
   it("should return  given number of chars of file", function() {
-    args = { option: "c", optionValue: 2, files: [file] };
+    args = { option: "c", count: 2, files: [file] };
     deepEqual(extractFiles(doesExist, readFunc, args), "0\n");
   });
   it("should return the not found error message", function() {
     file = "file does not exist";
-    args = { option: "c", optionValue: 2, files: [file] };
+    args = { option: "c", count: 2, files: [file] };
     deepEqual(
       extractFiles(doesExist, readFunc, args),
       "head: file does not exist: No such file or directory"
@@ -77,7 +77,7 @@ describe("extractFiles()", function() {
     file = "0\n1\n2\n3";
     file1 = "a\nb\nc";
     expected = "==> 0\n1\n2\n3 <==\n0\n1\n\n==> a\nb\nc <==\na\nb";
-    args = { option: "n", optionValue: 2, files: [file, file1] };
+    args = { option: "n", count: 2, files: [file, file1] };
     deepEqual(extractFiles(doesExist, readFunc, args), expected);
   });
 });

@@ -1,5 +1,5 @@
 const parseInputs = function(headArgs) {
-  let parsedInput = { option: "n", optionValue: 10, files: [...headArgs] };
+  let parsedInput = { option: "n", count: 10, files: [...headArgs] };
 
   if (
     headArgs[0].length >= 3 &&
@@ -7,7 +7,7 @@ const parseInputs = function(headArgs) {
     isNaN(headArgs[0][1])
   ) {
     parsedInput.option = headArgs[0][1];
-    parsedInput.optionValue = headArgs[0].slice(2);
+    parsedInput.count = headArgs[0].slice(2);
     parsedInput.files = headArgs.slice(1);
   }
 
@@ -17,7 +17,7 @@ const parseInputs = function(headArgs) {
     isNaN(headArgs[0][1])
   ) {
     parsedInput.option = headArgs[0][1];
-    parsedInput.optionValue = headArgs[1];
+    parsedInput.count = headArgs[1];
     parsedInput.files = headArgs.slice(2);
   }
 
@@ -27,12 +27,12 @@ const parseInputs = function(headArgs) {
     headArgs[0][1] == "-"
   ) {
     parsedInput.option = "n";
-    parsedInput.optionValue = 10;
+    parsedInput.count = 10;
     parsedInput.files = headArgs.slice(1);
   }
 
   if (headArgs[0].length >= 2 && !isNaN(headArgs[0].slice(1))) {
-    parsedInput.optionValue = headArgs[0].slice(1);
+    parsedInput.count = headArgs[0].slice(1);
     parsedInput.files = headArgs.slice(1);
   }
 
