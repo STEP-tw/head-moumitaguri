@@ -140,3 +140,15 @@ describe('isCountIllegal()', function(){
     deepEqual(isCountIllegal(2),false);
   });
 });
+
+describe('isIllegalOffset()', function(){
+  it('should return true when offset is negative', function(){
+    deepEqual(isIllegalOffset(-1),true);
+  });
+  it('should return false when offset is 0', function(){
+    deepEqual(isIllegalOffset(0),false);
+  });
+  it('should return true when offset is NaN', function(){
+    deepEqual(isIllegalOffset("n"),true);
+  });
+});
