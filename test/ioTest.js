@@ -1,5 +1,5 @@
 const { equal, deepEqual } = require("assert");
-const { parseInputs } = require("../src/util.js");
+const { parseInputs } = require("../src/io.js");
 
 describe("parseInputs() => should return an object having option : n ,count : 10,files : fileList,key-value-pairs", function() {
   it('should work for input => headArgs = ["-n5","file"]', function() {

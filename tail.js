@@ -16,3 +16,15 @@
 
 
 
+const { tail } = require("./src/lib.js");
+
+const { parseInputs } = require("./src/tailIO.js");
+const { readFileSync, existsSync } = require("fs");
+
+const main = function() {
+  let tailArgs = process.argv.slice(2);
+  let parsedInputs = parseInputs(tailArgs);
+  console.log(tail(existsSync, readFileSync, parsedInputs));
+};
+
+main();
