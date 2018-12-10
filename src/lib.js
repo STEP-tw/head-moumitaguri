@@ -14,14 +14,12 @@ const getFirstNLines = function(fileContent, numberOfLines = 10) {
   return fileContent
     .split("\n")
     .slice(0, numberOfLines)
-    .join("\n");W
+    .join("\n");
 };    
 const getLastNLines = function(fileContent, numberOfLines){
   return fileContent
     .split("\n")
-    .reverse()
-    .slice(0,numberOfLines)
-    .reverse()
+    .slice(-numberOfLines)
     .join("\n");
 }
 
@@ -144,5 +142,8 @@ module.exports = {
   extractFiles,
   tailFiles,
   head,
-  tail
+  tail,
+  isCountIllegal,
+  isOptionIllegal,
+  isIllegalOffset
 };
