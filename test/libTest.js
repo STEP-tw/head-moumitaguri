@@ -127,13 +127,16 @@ describe('isOptionIllegal()' , function(){
 });
 
 describe('isCountIllegal()', function(){
-  it('should return true when count < 0', function(){
+  it('should return true when count is 0', function(){
+    deepEqual(isCountIllegal(0),true);
+  });
+  it('should return true when count is negative', function(){
     deepEqual(isCountIllegal(-1),true);
   });
   it('should return true when count is NaN', function(){
     deepEqual(isCountIllegal("n"),true);
   });
-  it('should return false when count is > 0', function(){
-    deepEqual(isCountIllegal(1),false);
+  it('should return false when count is > 1', function(){
+    deepEqual(isCountIllegal(2),false);
   });
 });
