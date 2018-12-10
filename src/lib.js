@@ -19,7 +19,9 @@ const getFirstNLines = function(fileContent, numberOfLines = 10) {
 const getLastNLines = function(fileContent, numberOfLines){
   return fileContent
     .split("\n")
-    .slice(-numberOfLines)
+    .reverse()
+    .slice(0,numberOfLines)
+    .reverse()
     .join("\n");
 }
 
