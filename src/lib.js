@@ -131,10 +131,22 @@ const tailFiles = function(
     .join(joinWith);
 };
 
-const tail = function(doesExist,readFunc, { option, offset, files } ) { if(isOptionIllegal(option)){
-    return illegalTailOption + option + "\n" + illegalTailUsage ; }
+const printTailIllegalOptionUsageError = function(option){
+  return illegalTailOption + option + "\n" + illegalTailUsage;
+}
+
+const printTailIllegalOffsetError = function(offset){
+  return illegalOffset + offset ;
+}
+const tail = function(doesExist,
+  readFunc,
+  { option, offset, files }
+   ) {
+  if(isOptionIllegal(option)){
+    return printTailIllegalOptionUsageError(option);
+  }
   if(isIllegalOffset(offset)){
-    return illegalOffset + offset ;
+    return printTailIllegalOffsetError(offset);
   }
   
   return tailFiles(doesExist,readFunc, { option, offset, files });
