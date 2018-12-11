@@ -1,4 +1,4 @@
-const parseInputs = function(headArgs) {
+const parseInputs = function (headArgs) {
   let parsedInput = { option: "n", count: 10, files: [...headArgs] };
 
   if (
