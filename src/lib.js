@@ -78,15 +78,18 @@ const printHeadIllegalOptionUsageErrorMessage = function(option){
   return illegalOption + option + "\n" + illegalUsage;
 }
 
+const printHeadIllegalCountError = function(count,option){
+  if(option == "n") return illegalLineCount + count;
+  return illegalByteCount + count;
+}
+
 const head = function(doesExist, readFunc, { option, count, files }) {
   if (isOptionIllegal(option)) {
     return printHeadIllegalOptionUsageErrorMessage(option);
   }
   if(isCountIllegal(count)){
-    if (option == "n") return illegalLineCount + count;
-    return illegalByteCount + count;
+    return printHeadIllegalCountError(count,option);
   }
-
   return extractFiles(doesExist, readFunc, { option, count, files });
 };
 
