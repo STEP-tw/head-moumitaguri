@@ -1,46 +1,46 @@
 const { isOptionIllegal,
-        isCountIllegal,
-        isIllegalOffset,
-        printHeadIllegalCountError,
-        printHeadIllegalOptionUsageErrorMessage,
-        printTailIllegalOffsetError,
-        printTailIllegalOptionUsageError
-      } = require('./errorCheck.js');
+  isCountIllegal,
+  isIllegalOffset,
+  printHeadIllegalCountError,
+  printHeadIllegalOptionUsageErrorMessage,
+  printTailIllegalOffsetError,
+  printTailIllegalOptionUsageError
+} = require('./errorCheck.js');
 
-const getFirstNChars = function(fileContent, numberOfChars) {
+const getFirstNChars = function (fileContent, numberOfChars) {
   return fileContent.slice(0, numberOfChars);
 };
 
-const getLastNChars = function(fileContent,numberOfChars){
+const getLastNChars = function (fileContent, numberOfChars) {
   return fileContent
     .split("")
     .reverse()
-    .slice(0,numberOfChars)
+    .slice(0, numberOfChars)
     .reverse()
     .join("");
 }
-const getFirstNLines = function(fileContent, numberOfLines = 10) {
+const getFirstNLines = function (fileContent, numberOfLines = 10) {
   return fileContent
     .split("\n")
     .slice(0, numberOfLines)
     .join("\n");
-};    
-const getLastNLines = function(fileContent, numberOfLines){
+};
+const getLastNLines = function (fileContent, numberOfLines) {
   return fileContent
     .split("\n")
     .reverse()
-    .slice(0,numberOfLines)
+    .slice(0, numberOfLines)
     .reverse()
     .join("\n");
 }
 
-const displayFileName = function(fileName) {
+const displayFileName = function (fileName) {
   return "==> " + fileName + " <==";
 };
 
 const notFound = ": No such file or directory";
 
-const extractFiles = function(
+const extractFiles = function (
   doesExist,
   readFunc,
   { option, count, files }
@@ -70,19 +70,19 @@ const extractFiles = function(
 
 
 
-const head = function(doesExist, readFunc, { option, count, files }) {
+const head = function (doesExist, readFunc, { option, count, files }) {
   if (isOptionIllegal(option)) {
     return printHeadIllegalOptionUsageErrorMessage(option);
   }
-  if(isCountIllegal(count)){
-    return printHeadIllegalCountError(count,option);
+  if (isCountIllegal(count)) {
+    return printHeadIllegalCountError(count, option);
   }
   return extractFiles(doesExist, readFunc, { option, count, files });
 };
 
 
 
-const tailFiles = function(
+const tailFiles = function (
   doesExist,
   readFunc,
   { option, offset, files }
@@ -111,18 +111,18 @@ const tailFiles = function(
 };
 
 
-const tail = function(doesExist,
+const tail = function (doesExist,
   readFunc,
   { option, offset, files }
-   ) {
-  if(isOptionIllegal(option)){
+) {
+  if (isOptionIllegal(option)) {
     return printTailIllegalOptionUsageError(option);
   }
-  if(isIllegalOffset(offset)){
+  if (isIllegalOffset(offset)) {
     return printTailIllegalOffsetError(offset);
   }
-  
-  return tailFiles(doesExist,readFunc, { option, offset, files });
+
+  return tailFiles(doesExist, readFunc, { option, offset, files });
 }
 
 module.exports = {
