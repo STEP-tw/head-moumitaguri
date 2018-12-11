@@ -74,11 +74,13 @@ const isCountIllegal = function(count){
   return (count < 1 || isNaN(count - 0));
 }
 
-
+const printHeadIllegalOptionUsageErrorMessage = function(option){
+  return illegalOption + option + "\n" + illegalUsage;
+}
 
 const head = function(doesExist, readFunc, { option, count, files }) {
   if (isOptionIllegal(option)) {
-    return illegalOption + option + "\n" + illegalUsage;
+    return printHeadIllegalOptionUsageErrorMessage(option);
   }
   if(isCountIllegal(count)){
     if (option == "n") return illegalLineCount + count;
