@@ -72,7 +72,7 @@ const fetchFileContents = function (readFunc, { option, count, files }, context,
 }
 
 
-const selectAndPerformAction = function (fileContent, option, count, context) {
+const selectAndPerformAction = function (fileContent, option = "n", count, context) {
   let action = {
     n: getNLines,
     c: getNChars
@@ -97,7 +97,7 @@ const extractFiles = function (
 
 const head = function (doesExist, readFunc, parsedInputs, context) {
   if (isOptionIllegal(parsedInputs.option)) {
-    return printHeadIllegalOptionUsageELrrorMessage(parsedInputs.option);
+    return printHeadIllegalOptionUsageErrorMessage(parsedInputs.option);
   }
   if (isCountIllegal(parsedInputs.count)) {
     return printHeadIllegalCountError(parsedInputs.count, parsedInputs.option);
@@ -153,7 +153,6 @@ const tail = function (doesExist,
 module.exports = {
   getLastNChars,
   getLastNLines,
-  getFirstNLines,
   displayFileName,
   extractFiles,
   tailFiles,
