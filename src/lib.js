@@ -40,44 +40,58 @@ const displayFileName = function (fileName) {
 
 const notFound = ": No such file or directory";
 
+const addHeader = function (fileContent, fileHeader, files) {
+  if (files.length > 1) {
+    return fileHeader + fileContent;
+  }
+  return fileContent;
+
+}
+
+const formatFileContent = function(doesExist,readFunc,parsedInputs,file) {
+  if(!doesExist(file)){
+    return "head: " + file + notFound ;
+  }
+  return fetchFileContents(readFunc,parsedInputs,file);
+}
+
+const fetchFileContents = function(readFunc,{option,count,files},file) {
+  let fileHeader = displayFileName(file) + "\n";
+  let content = readFunc(file,"utf8");
+  let fileContent = selectAndPerformAction(content,option,count);
+  return addHeader(fileContent,fileHeader,files);
+}
+
+
+const selectAndPerformAction = function(fileContent,option,count) {
+  if(option == "n"){
+    return getFirstNLines(fileContent,count);
+  }
+  return getFirstNChars(fileContent,count);
+}
+
+
 const extractFiles = function (
   doesExist,
   readFunc,
-  { option, count, files }
+  {option,count,files}
 ) {
   let joinWith = "\n\n";
+  let validateFile = formatFileContent.bind(null,doesExist,readFunc,{option,count,files});
   return files
-    .map(file => {
-      if (!doesExist(file)) {
-        return "head: " + file + notFound;
-      }
-      let fileHeader = displayFileName(file) + "\n";
-      let fileContent = readFunc(file, "utf8");
-      let extractedContent;
-      if (option == "n") {
-        extractedContent = getFirstNLines(fileContent, count);
-      }
-      if (option == "c") {
-        extractedContent = getFirstNChars(fileContent, count);
-      }
-      if (files.length > 1) {
-        return fileHeader + extractedContent;
-      }
-      return extractedContent;
-    })
+    .map(validateFile)
     .join(joinWith);
 };
 
 
-
-const head = function (doesExist, readFunc, { option, count, files }) {
+  const head = function (doesExist, readFunc, parsedInputs) {
   if (isOptionIllegal(option)) {
     return printHeadIllegalOptionUsageErrorMessage(option);
   }
   if (isCountIllegal(count)) {
     return printHeadIllegalCountError(count, option);
   }
-  return extractFiles(doesExist, readFunc, { option, count, files });
+  return extractFiles(doesExist, readFunc, parsedInputs);
 };
 
 
