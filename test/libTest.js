@@ -125,19 +125,23 @@ describe('tail()', function () {
     args = { option: "c", offset: 1, files: [file] };
     deepEqual(tail(doesExist, readFunc, args), '9');
   });
+  
   it('should return last given number of lines for node ./tail.js -n4 file', function () {
     args = { option: "n", offset: 4, files: [file] };
     deepEqual(tail(doesExist, readFunc, args), '6\n7\n8\n9');
   });
+
   it('should return last given number of characters for node ./tail.js -c4 file', function () {
     args = { option: "c", offset: 4, files: [file] };
     deepEqual(tail(doesExist, readFunc, args), '\n8\n9');
   });
+
   it('should return last given number of lines for multiple files node ./tail.js -n2 file2 file3', function () {
     args = { option: "n", offset: 2, files: [file2, file3] };
     expected = "==> 0\n1\n2\n3 <==\n2\n3\n\n==> a\nb\nc <==\nb\nc";
     deepEqual(tail(doesExist, readFunc, args), expected);
   });
+
   it('should return last given number of characters for multiple files node ./tail.js -n2 file2 file3', function () {
     args = { option: "c", offset: 2, files: [file2, file3] };
     expected = "==> 0\n1\n2\n3 <==\n\n3\n\n==> a\nb\nc <==\n\nc";
