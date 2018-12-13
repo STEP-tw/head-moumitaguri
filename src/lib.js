@@ -7,9 +7,12 @@ const { isOptionIllegal,
   printTailIllegalOptionUsageError
 } = require('./errorCheck.js');
 
-const getFirstNChars = function (fileContent, numberOfChars) {
-  return fileContent.slice(0, numberOfChars);
-};
+const getNChars = function (fileContent, count, context) {
+  if (context == "head") {
+    return fileContent.substr(0, count);
+  }
+  return fileContent.substr(-count, count);
+}
 
 const getLastNChars = function (fileContent, numberOfChars) {
   return fileContent
@@ -19,12 +22,18 @@ const getLastNChars = function (fileContent, numberOfChars) {
     .reverse()
     .join("");
 }
-const getFirstNLines = function (fileContent, numberOfLines = 10) {
+
+const getNLines = function (fileContent, count, context) {
+  if (context == "head") {
+    return fileContent.split("\n").slice(0, count).join("\n");
+  }
   return fileContent
     .split("\n")
-    .slice(0, numberOfLines)
+    .reverse()
+    .slice(0, count)
+    .reverse()
     .join("\n");
-};
+}
 const getLastNLines = function (fileContent, numberOfLines) {
   return fileContent
     .split("\n")
@@ -48,50 +57,52 @@ const addHeader = function (fileContent, fileHeader, files) {
 
 }
 
-const formatFileContent = function(doesExist,readFunc,parsedInputs,file) {
-  if(!doesExist(file)){
-    return "head: " + file + notFound ;
+const formatFileContent = function (doesExist, readFunc, parsedInputs, context, file) {
+  if (!doesExist(file)) {
+    return context + ": " + file + notFound;
   }
-  return fetchFileContents(readFunc,parsedInputs,file);
+  return fetchFileContents(readFunc, parsedInputs, context, file);
 }
 
-const fetchFileContents = function(readFunc,{option,count,files},file) {
+const fetchFileContents = function (readFunc, { option, count, files }, context, file) {
   let fileHeader = displayFileName(file) + "\n";
-  let content = readFunc(file,"utf8");
-  let fileContent = selectAndPerformAction(content,option,count);
-  return addHeader(fileContent,fileHeader,files);
+  let content = readFunc(file, "utf8");
+  let fileContent = selectAndPerformAction(content, option, count, context);
+  return addHeader(fileContent, fileHeader, files);
 }
 
 
-const selectAndPerformAction = function(fileContent,option,count) {
-  if(option == "n"){
-    return getFirstNLines(fileContent,count);
-  }
-  return getFirstNChars(fileContent,count);
+const selectAndPerformAction = function (fileContent, option, count, context) {
+  let action = {
+    n: getNLines,
+    c: getNChars
+  };
+  return action[option](fileContent, count, context);
 }
 
 
 const extractFiles = function (
   doesExist,
   readFunc,
-  {option,count,files}
+  { option, count, files },
+  context
 ) {
   let joinWith = "\n\n";
-  let validateFile = formatFileContent.bind(null,doesExist,readFunc,{option,count,files});
+  let validateFile = formatFileContent.bind(null, doesExist, readFunc, { option, count, files }, context);
   return files
     .map(validateFile)
     .join(joinWith);
 };
 
 
-  const head = function (doesExist, readFunc, parsedInputs) {
-  if (isOptionIllegal(option)) {
-    return printHeadIllegalOptionUsageErrorMessage(option);
+const head = function (doesExist, readFunc, parsedInputs, context) {
+  if (isOptionIllegal(parsedInputs.option)) {
+    return printHeadIllegalOptionUsageELrrorMessage(parsedInputs.option);
   }
-  if (isCountIllegal(count)) {
-    return printHeadIllegalCountError(count, option);
+  if (isCountIllegal(parsedInputs.count)) {
+    return printHeadIllegalCountError(parsedInputs.count, parsedInputs.option);
   }
-  return extractFiles(doesExist, readFunc, parsedInputs);
+  return extractFiles(doesExist, readFunc, parsedInputs, context);
 };
 
 
@@ -140,7 +151,6 @@ const tail = function (doesExist,
 }
 
 module.exports = {
-  getFirstNChars,
   getLastNChars,
   getLastNLines,
   getFirstNLines,
