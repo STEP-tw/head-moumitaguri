@@ -5,7 +5,8 @@ const {
   getLastNChars,
   getLastNLines,
   displayFileName,
-  extractFiles
+  extractFiles,
+  tail
 } = require("../src/lib.js");
 
 describe("getFirstNChars()", function () {
@@ -99,7 +100,7 @@ describe('getLastNChars()', function () {
 });
 
 describe('getLastNLines()', function () {
-  content = "1\n2\n3\n4\n5\n6"
+  content = "1\n2\n3\n4\n5\n6";
   it('should return last line of the given string when input is 1', function () {
     deepEqual(getLastNLines(content, 1), "6");
   });
@@ -108,5 +109,38 @@ describe('getLastNLines()', function () {
   });
   it('should return whole string when input n > string length', function () {
     deepEqual(getLastNLines(content, 12), content);
+  });
+});
+
+describe('tail()', function () {
+  let file = "0\n1\n2\n3\n4\n5\n6\n7\n8\n9";
+  let file2 = "0\n1\n2\n3";
+  let file3 = "a\nb\nc";
+  it('should return last line for input node ./tail.js -n1 file', function () {
+    args = { option: "n", offset: 1, files: [file] };
+    deepEqual(tail(doesExist, readFunc, args), '9');
+  });
+
+  it('should return last character for node ./tail.js -c1 file', function () {
+    args = { option: "c", offset: 1, files: [file] };
+    deepEqual(tail(doesExist, readFunc, args), '9');
+  });
+  it('should return last given number of lines for node ./tail.js -n4 file', function () {
+    args = { option: "n", offset: 4, files: [file] };
+    deepEqual(tail(doesExist, readFunc, args), '6\n7\n8\n9');
+  });
+  it('should return last given number of characters for node ./tail.js -c4 file', function () {
+    args = { option: "c", offset: 4, files: [file] };
+    deepEqual(tail(doesExist, readFunc, args), '\n8\n9');
+  });
+  it('should return last given number of lines for multiple files node ./tail.js -n2 file2 file3', function () {
+    args = { option: "n", offset: 2, files: [file2, file3] };
+    expected = "==> 0\n1\n2\n3 <==\n2\n3\n\n==> a\nb\nc <==\nb\nc";
+    deepEqual(tail(doesExist, readFunc, args), expected);
+  });
+  it('should return last given number of characters for multiple files node ./tail.js -n2 file2 file3', function () {
+    args = { option: "c", offset: 2, files: [file2, file3] };
+    expected = "==> 0\n1\n2\n3 <==\n\n3\n\n==> a\nb\nc <==\n\nc";
+    deepEqual(tail(doesExist, readFunc, args), expected);
   });
 });
