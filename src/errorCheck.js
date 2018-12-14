@@ -29,7 +29,7 @@ const illegalTailUsage = "usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [
 const illegalOffset = "tail: illegal offset -- ";
 
 const isIllegalOffset = function (offset) {
-  return (offset < 0 || isNaN(offset - 0));
+    return isNaN(offset - 0);
 }
 
 const printTailIllegalOptionUsageError = function (option) {
