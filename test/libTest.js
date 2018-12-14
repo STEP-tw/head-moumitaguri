@@ -164,3 +164,41 @@ describe('tail()', function () {
     deepEqual(tail(doesExist, readFunc, args,context), expected);
   });
 });
+
+describe('head()', function () {
+  let file = "0\n1\n2\n3\n4\n5\n6\n7\n8\n9";
+  let file2 = "0\n1\n2\n3";
+  let file3 = "a\nb\nc";
+  let context = "head";
+  it('should return first line for input node ./head.js -n1 file', function () {
+    args = { option: "n", count: 1, files: [file] };
+    deepEqual(head(doesExist, readFunc, args,context), '0');
+  });
+
+  it('should return first character for node ./head.js -c1 file', function () {
+    args = { option: "c", count: 1, files: [file] };
+    deepEqual(head(doesExist, readFunc, args,context), '0');
+  });
+
+  it('should return first given number of lines for node ./head.js -n4 file', function () {
+    args = { option: "n", count: 4, files: [file] };
+    deepEqual(head(doesExist, readFunc, args,context), '0\n1\n2\n3');
+  });
+
+  it('should return first given number of characters for node ./head.js -c4 file', function () {
+    args = { option: "c", count: 4, files: [file] };
+    deepEqual(head(doesExist, readFunc, args,context), '0\n1\n');
+  });
+
+  it('should return first given number of lines for multiple files node ./head.js -n2 file2 file3', function () {
+    args = { option: "n", count: 2, files: [file2, file3] };
+    expected = "==> 0\n1\n2\n3 <==\n0\n1\n\n==> a\nb\nc <==\na\nb";
+    deepEqual(head(doesExist, readFunc, args,context), expected);
+  });
+
+  it('should return first given number of characters for multiple files node ./tail.js -n2 file2 file3', function () {
+    args = { option: "c", count: 2, files: [file2, file3] };
+    expected = "==> 0\n1\n2\n3 <==\n0\n\n\n==> a\nb\nc <==\na\n";
+    deepEqual(head(doesExist, readFunc, args,context), expected);
+  });
+});
