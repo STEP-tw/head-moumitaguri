@@ -20,7 +20,7 @@ const isCase1ValidOptionCount = function (args) {
 
 
 const splitArgsForCase1 = function (args, parsedInput) {
-    parsedInput.offset = args[0].slice(2);
+    parsedInput.count = args[0].slice(2);
     parsedInput.option = args[0][1];
     parsedInput.files = args.slice(1);
     return parsedInput;
@@ -36,7 +36,7 @@ const isCase2ValidOptionCount = function (args) {
 
 const splitArgsForCase2 = function (args, parsedInput) {
     parsedInput.option = args[0][1];
-    parsedInput.offset = args[1];
+    parsedInput.count = args[1];
     parsedInput.files = args.slice(2);
     return parsedInput;
 }
@@ -50,7 +50,7 @@ const isCase3ValidOptionCount = function (args) {
 }
 
 const splitArgsForCase3 = function (args, parsedInput) {
-    parsedInput.offset = args[0].slice(1);
+    parsedInput.count = args[0].slice(1);
     parsedInput.files = args.slice(1);
     return parsedInput;
 }
