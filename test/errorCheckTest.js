@@ -64,9 +64,6 @@ describe('printHeadIllegalOptionUsageErrorMessage()', function () {
 
 
 describe('printTailIllegalOffsetError()', function () {
-  it('should return string showing illegal offset error < 0 ', function () {
-    deepEqual(printTailIllegalOffsetError(-1), "tail: illegal offset -- -1");
-  });
   it('should return string showing illegal offset NaN ', function () {
     deepEqual(printTailIllegalOffsetError("c"), "tail: illegal offset -- c");
   });
