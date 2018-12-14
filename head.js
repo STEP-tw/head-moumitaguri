@@ -15,7 +15,7 @@
   */
 
 const { head } = require("./src/lib.js");
-const { parseInputs } = require("./src/io.js");
+const { parseInputs } = require("./src/parseInput.js");
 const { readFileSync, existsSync } = require("fs");
 
 const main = function () {
