@@ -14,14 +14,6 @@ const getNChars = function (fileContent, count, context) {
   return fileContent.substr(-count, count);
 }
 
-const getLastNChars = function (fileContent, numberOfChars) {
-  return fileContent
-    .split("")
-    .reverse()
-    .slice(0, numberOfChars)
-    .reverse()
-    .join("");
-}
 
 const getNLines = function (fileContent, count, context) {
   if (context == "head") {
@@ -31,14 +23,6 @@ const getNLines = function (fileContent, count, context) {
     .split("\n")
     .reverse()
     .slice(0, count)
-    .reverse()
-    .join("\n");
-}
-const getLastNLines = function (fileContent, numberOfLines) {
-  return fileContent
-    .split("\n")
-    .reverse()
-    .slice(0, numberOfLines)
     .reverse()
     .join("\n");
 }
@@ -107,58 +91,31 @@ const head = function (doesExist, readFunc, parsedInputs, context) {
 
 
 
-const tailFiles = function (
-  doesExist,
-  readFunc,
-  { option, offset, files }
-) {
-  let joinWith = "\n\n";
-  return files
-    .map(file => {
-      if (!doesExist(file)) {
-        return "tail: " + file + notFound;
-      }
-      let fileHeader = displayFileName(file) + "\n";
-      let fileContent = readFunc(file, "utf8");
-      let extractedContent;
-      if (option == "n") {
-        extractedContent = getLastNLines(fileContent, offset);
-      }
-      if (option == "c") {
-        extractedContent = getLastNChars(fileContent, offset);
-      }
-      if (files.length > 1) {
-        return fileHeader + extractedContent;
-      }
-      return extractedContent;
-    })
-    .join(joinWith);
-};
 
 
 const tail = function (doesExist,
   readFunc,
-  { option, offset, files }
+  parsedInputs,
+  context
 ) {
-  if (isOptionIllegal(option)) {
-    return printTailIllegalOptionUsageError(option);
+  if (isOptionIllegal(parsedInputs.option)) {
+    return printTailIllegalOptionUsageError(parsedInputs.option);
   }
-  if (isIllegalOffset(offset)) {
-    return printTailIllegalOffsetError(offset);
+  if (isIllegalOffset(parsedInputs.count)) {
+    return printTailIllegalOffsetError(parsedInputs.count);
   }
 
-  return tailFiles(doesExist, readFunc, { option, offset, files });
+  return extractFiles(doesExist, readFunc, parsedInputs, context);
 }
 
 module.exports = {
-  getLastNChars,
-  getLastNLines,
+  getNChars,
+  getNLines,
   displayFileName,
+  formatFileContent,
+  fetchFileContents,
+  selectAndPerformAction,
   extractFiles,
-  tailFiles,
   head,
-  tail,
-  isCountIllegal,
-  isOptionIllegal,
-  isIllegalOffset
+  tail
 };
