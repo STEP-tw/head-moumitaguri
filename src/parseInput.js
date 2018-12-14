@@ -7,7 +7,7 @@ const { isCase1ValidOptionCount,
       } = require('../src/util.js');
 
 const parseInputs = function(args) {
-  let parsedInput = { option: "n", offset: 10, files: [...args] };
+  let parsedInput = { option: "n", count: 10, files: [...args] };
 
   //case1 example : (a) node ./tail.js -n5 file1
   //                (b) node ./tail.js -n15 file1 file2
