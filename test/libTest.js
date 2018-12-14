@@ -127,7 +127,7 @@ describe('getNLines()', function () {
   });
 });
 
-describe.only('tail()', function () {
+describe('tail()', function () {
   let file = "0\n1\n2\n3\n4\n5\n6\n7\n8\n9";
   let file2 = "0\n1\n2\n3";
   let file3 = "a\nb\nc";
@@ -176,6 +176,11 @@ describe.only('tail()', function () {
   it ( 'should return tail: illegal offset -- c for node ./tail.js -cc file ' , function() {
     args = { option : "c", count : "c", files: [file]};
     expected = "tail: illegal offset -- c" ;
+    deepEqual(tail(doesExist,readFunc,args,context),expected);
+  });
+  it ( 'should return tail: illegal option -- v\nusage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...] for node ./head.js -v3 file ' , function() {
+    args = { option : "v", count : 3, files: [file]};
+    expected = "tail: illegal option -- v\nusage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]";
     deepEqual(tail(doesExist,readFunc,args,context),expected);
   });
 });
@@ -243,6 +248,11 @@ describe('head()', function () {
   it ( 'should return head: illegal line count -- 0 for node ./head.js -nc file ' , function() {
     args = { option : "n", count : "c", files: [file]};
     expected = "head: illegal line count -- c";
+    deepEqual(head(doesExist,readFunc,args,context),expected);
+  });
+  it ( 'should return head: illegal option -- v\nusage: head [-n lines | -c bytes] [file ...] for node ./head.js -v3 file ' , function() {
+    args = { option : "v", count : 3, files: [file]};
+    expected = "head: illegal option -- v\nusage: head [-n lines | -c bytes] [file ...]";
     deepEqual(head(doesExist,readFunc,args,context),expected);
   });
 });
