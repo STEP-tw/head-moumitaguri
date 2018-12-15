@@ -45,16 +45,16 @@ const addHeader = function (fileContent, fileHeader, files) {
 
 }
 
-const formatFileContent = function (doesExist, readFunc, parsedInputs, context, file) {
-  if (!doesExist(file)) {
+const formatFileContent = function (parsedInputs, context, existsSync, readFileSync, file) {
+  if (!existsSync(file)) {
     return context + ": " + file + notFound;
   }
-  return fetchFileContents(readFunc, parsedInputs, context, file);
+  return fetchFileContents(parsedInputs, context, readFileSync, file);
 }
 
-const fetchFileContents = function (readFunc, { option, count, files }, context, file) {
+const fetchFileContents = function ({ option, count, files }, context, readFileSync, file) {
   let fileHeader = displayFileName(file) + "\n";
-  let content = readFunc(file, "utf8");
+  let content = readFileSync(file, "utf8");
   let fileContent = selectAndPerformAction(content, option, count, context);
   return addHeader(fileContent, fileHeader, files);
 }
@@ -70,24 +70,24 @@ const selectAndPerformAction = function (fileContent, option = "n", count, conte
 
 
 const extractFiles = function (
-  doesExist,
-  readFunc,
   { option, count, files },
-  context
+  context,
+  existsSync,
+  readFileSync
 ) {
   let joinWith = "\n\n";
-  let validateFile = formatFileContent.bind(null, doesExist, readFunc, { option, count, files }, context);
+  let validateFile = formatFileContent.bind(null, { option, count, files }, context, existsSync, readFileSync);
   return files
     .map(validateFile)
     .join(joinWith);
 };
 
 
-const runCommand = function (doesExist, readFunc, parsedInputs, context) {
+const runCommand = function (parsedInputs, context, { existsSync, readFileSync }) {
   if (hasIllegalInputs(parsedInputs)) {
     return showError(parsedInputs, context);
   }
-  return extractFiles(doesExist, readFunc, parsedInputs, context);
+  return extractFiles(parsedInputs, context, existsSync, readFileSync);
 }
 
 module.exports = {
