@@ -7,6 +7,10 @@ const { isOptionIllegal,
   printTailIllegalOptionUsageError
 } = require('./errorCheck.js');
 
+const { hasIllegalInputs,
+  showError
+} = require('../src/errorCheck.js');
+
 const getNChars = function (fileContent, count, context) {
   if (context == "head") {
     return fileContent.substr(0, count);
@@ -79,32 +83,10 @@ const extractFiles = function (
 };
 
 
-const head = function (doesExist, readFunc, parsedInputs, context) {
-  if (isOptionIllegal(parsedInputs.option)) {
-    return printHeadIllegalOptionUsageErrorMessage(parsedInputs.option);
+const runCommand = function (doesExist, readFunc, parsedInputs, context) {
+  if (hasIllegalInputs(parsedInputs)) {
+    return showError(parsedInputs, context);
   }
-  if (isCountIllegal(parsedInputs.count)) {
-    return printHeadIllegalCountError(parsedInputs.count, parsedInputs.option);
-  }
-  return extractFiles(doesExist, readFunc, parsedInputs, context);
-};
-
-
-
-
-
-const tail = function (doesExist,
-  readFunc,
-  parsedInputs,
-  context
-) {
-  if (isOptionIllegal(parsedInputs.option)) {
-    return printTailIllegalOptionUsageError(parsedInputs.option);
-  }
-  if (isIllegalOffset(parsedInputs.count)) {
-    return printTailIllegalOffsetError(parsedInputs.count);
-  }
-
   return extractFiles(doesExist, readFunc, parsedInputs, context);
 }
 
@@ -116,6 +98,5 @@ module.exports = {
   fetchFileContents,
   selectAndPerformAction,
   extractFiles,
-  head,
-  tail
+  runCommand
 };
