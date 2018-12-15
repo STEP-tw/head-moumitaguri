@@ -29,7 +29,7 @@ const illegalTailUsage = "usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [
 const illegalOffset = "tail: illegal offset -- ";
 
 const isIllegalOffset = function (offset) {
-    return isNaN(offset - 0);
+  return isNaN(offset - 0);
 }
 
 const printTailIllegalOptionUsageError = function (option) {
@@ -39,6 +39,41 @@ const printTailIllegalOptionUsageError = function (option) {
 const printTailIllegalOffsetError = function (offset) {
   return illegalOffset + offset;
 }
+const optionAndUsageError = {
+  head: printHeadIllegalOptionUsageErrorMessage,
+  tail: printTailIllegalOptionUsageError
+};
+
+const illegalCount = {
+  head: isCountIllegal,
+  tail: isIllegalOffset
+}
+
+const isIllegalCount = function (count, context) {
+  return illegalCount[context](count);
+}
+
+const countError = {
+  head: printHeadIllegalCountError,
+  tail: printTailIllegalOffsetError
+};
+
+const showError = function (parsedInput, context) {
+  if (isOptionIllegal(parsedInput.option)) {
+    return optionAndUsageError[context](parsedInput.option)
+  }
+  if (isIllegalCount(parsedInput.count, context)) {
+    return countError[context](parsedInput.count, parsedInput.option);
+  }
+}
+
+const hasIllegalInputs = function (parsedInput) {
+  return (isOptionIllegal(parsedInput.option)
+    || isCountIllegal(parsedInput.count)
+    || isIllegalOffset(parsedInput.count))
+}
+
+
 
 module.exports = {
   isOptionIllegal,
@@ -47,5 +82,7 @@ module.exports = {
   printHeadIllegalCountError,
   printHeadIllegalOptionUsageErrorMessage,
   printTailIllegalOffsetError,
-  printTailIllegalOptionUsageError
+  printTailIllegalOptionUsageError,
+  hasIllegalInputs,
+  showError
 };
