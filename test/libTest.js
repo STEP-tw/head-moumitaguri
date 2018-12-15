@@ -19,10 +19,25 @@ describe("displayFileName()", function () {
   });
 });
 
-const readFileSync = function (file) {
-  return file;
-};
-
+//readFileSync() ==> mockReadFileSync() to be used for tests
+const readFileSync = function(expectedFile, expectedEncoding, expectedContent) {
+  return function(actualFile,actualEncoding){
+    const isValidFile = function(){
+      return actualFile == expectedFile ;
+    }
+     const isValidEncoding = function(){
+       return actualEncoding == expectedEncoding ;
+     }
+     const areValidArgs = function(){
+       return isValidFile && isValidEncoding ;
+     }
+     if(areValidArgs){
+       return expectedContent;
+     }
+    }
+  }
+  
+ 
 const existsSync = function (file) {
   if (file == "file does not exist") {
     return false;
