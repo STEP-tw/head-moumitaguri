@@ -22,9 +22,29 @@ describe("parseInputs() => should return an object having option : n ,count : 10
     parsedInput = { option: "c", count: 5, files: ["file", "file2"] };
     deepEqual(parseInputs(headArgs), parsedInput);
   });
+  it('should work for input => headArgs = ["-n", "5","file"]', function () {
+    headArgs = ["-n", "5", "file"];
+    parsedInput = { option: "n", count: 5, files: ["file"] };
+    deepEqual(parseInputs(headArgs), parsedInput);
+  });
+  it('should work for input => headArgs = ["-c", "5","file"]', function () {
+    headArgs = ["-c", "5", "file"];
+    parsedInput = { option: "c", count: 5, files: ["file"] };
+    deepEqual(parseInputs(headArgs), parsedInput);
+  });
   it('should work for input => headArgs = ["-n",5,"file","file2"]', function () {
     headArgs = ["-n", "5", "file", "file2"];
     parsedInput = { option: "n", count: 5, files: ["file", "file2"] };
+    deepEqual(parseInputs(headArgs), parsedInput);
+  });
+  it('should work for input => headArgs = ["-c",5,"file","file2"]', function () {
+    headArgs = ["-c", "5", "file", "file2"];
+    parsedInput = { option: "c", count: 5, files: ["file", "file2"] };
+    deepEqual(parseInputs(headArgs), parsedInput);
+  });
+  it('should work for input => headArgs = ["-5","file"]', function () {
+    headArgs = ["-5", "file"];
+    parsedInput = { option: "n", count: 5, files: ["file"] };
     deepEqual(parseInputs(headArgs), parsedInput);
   });
   it('should work for input => headArgs = ["-5","file","file2"]', function () {
