@@ -1,4 +1,4 @@
-const { equal, deepEqual } = require('assert');
+const assert = require('assert');
 
 const { isOption,
     isDash,
@@ -13,21 +13,21 @@ const { isOption,
 
 describe('isOption()', function () {
     it('should check if input is NaN and return true or false', function () {
-        deepEqual(isOption("n"), true);
-        deepEqual(isOption(1), false);
+        assert.deepEqual(isOption("n"), true);
+        assert.deepEqual(isOption(1), false);
     });
 });
 
 describe('isNumber()', function () {
     it('should check if input is a number and return true or false', function () {
-        deepEqual(isNumber(1), true);
-        deepEqual(isNumber("c"), false);
+        assert.deepEqual(isNumber(1), true);
+        assert.deepEqual(isNumber("c"), false);
     });
 });
 
 describe('isDash()', function () {
     it('should check if input is - and return true or false', function () {
-        deepEqual(isDash("-"), true);
-        deepEqual(isDash("<"), false);
+        assert.deepEqual(isDash("-"), true);
+        assert.deepEqual(isDash("<"), false);
     });
 });
