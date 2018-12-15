@@ -2,15 +2,6 @@ const { isOption, isNumber, isDash
 } = require('../src/util.js');
 
 
-/*const { isCase1ValidOptionCount,
-        isCase2ValidOptionCount,
-        isCase3ValidOptionCount,
-        splitArgsForCase1,
-        splitArgsForCase2,
-        splitArgsForCase3
-      } = require('../src/util.js');*/
-
-
 //case1 example : (a) node ./tail.js -n5 file1
 //                (b) node ./tail.js -n15 file1 file2 
 const isCase1ValidOptionCount = function (args) {
@@ -77,5 +68,6 @@ const parseInputs = function (args) {
    }
    return parsedInput;
 };
+
 
 module.exports = { parseInputs };
