@@ -1,4 +1,4 @@
-const { hasIllegalInputs,
+const { printNotFoundError, hasIllegalInputs,
   showError
 } = require('./errorCheck.js');
 
@@ -26,7 +26,6 @@ const displayFileName = function (fileName) {
   return "==> " + fileName + " <==";
 };
 
-const notFound = ": No such file or directory";
 
 const addHeader = function (fileContent, fileHeader, files) {
   if (files.length > 1) {
@@ -38,7 +37,7 @@ const addHeader = function (fileContent, fileHeader, files) {
 
 const formatFileContent = function (parsedInputs, context, { existsSync, readFileSync }, file) {
   if (!existsSync(file)) {
-    return context + ": " + file + notFound;
+   return printNotFoundError(file, context);
   }
   return fetchFileContents(parsedInputs, context, readFileSync, file);
 }

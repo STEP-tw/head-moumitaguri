@@ -4,6 +4,11 @@ const illegalUsage = "usage: head [-n lines | -c bytes] [file ...]";
 const illegalByteCount = "head: illegal byte count -- ";
 const illegalLineCount = "head: illegal line count -- ";
 
+const notFound = ": No such file or directory";
+
+const printNotFoundError = function(file,context) {
+  return context + ": " + file + notFound;
+}
 
 const isOptionIllegal = function (option) {
   return option != "n" && option != "c";
@@ -79,6 +84,7 @@ module.exports = {
   isOptionIllegal,
   isHeadCountIllegal,
   isIllegalOffset,
+  printNotFoundError,
   printHeadIllegalCountError,
   printHeadIllegalOptionUsageErrorMessage,
   printTailIllegalOffsetError,
