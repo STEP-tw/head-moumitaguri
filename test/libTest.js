@@ -106,15 +106,9 @@ const readFileSync = function (expectedFile, expectedEncoding, expectedContent) 
   }
 }
 
-
 const existsSync = function (fileName) {
-  if (fileName == "fileDoesNotExist") {
-    return false;
-  }
-  return true;
-};
-
-const fs = { existsSync, readFileSync };
+  return fileName != "fileDoesNotExist";
+}
 
 describe("extractFiles()", function () {
   let file1 = "numbers.txt";
