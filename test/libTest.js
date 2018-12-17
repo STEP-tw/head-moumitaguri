@@ -1,3 +1,4 @@
+
 const assert = require("assert");
 const {
   getNChars,
@@ -128,24 +129,32 @@ describe("extractFiles()", function () {
 });
 
 describe('getNChars()', function () {
-  content = "1\n2\n3\n4\n5\n6"
+  let content = "1\n2\n3\n4\n5\n6"
   it('should return empty string for count :0,context: tail ', function () {
-    assert.deepEqual(getNChars(content, 0, "tail"), "");
+    let actualOut = getNChars(content, 0, "tail");
+    assert.deepEqual(actualOut, "");
   });
   it('should return last given number of characters for count : 2,context :tail', function () {
-
-    assert.deepEqual(getNChars(content, 2, "tail"), "\n6");
+    let actualOut = getNChars(content, 2, "tail");
+    let expectedOut = "\n6";
+    assert.deepEqual(actualOut,expectedOut);
   });
   it('should return the whole string when count > string length and context : tail', function () {
-    assert.deepEqual(getNChars(content, 12, "tail"), content);
+    let actualOut = getNChars(content, 12, "tail");
+    let expectedOut = "1\n2\n3\n4\n5\n6";
+    assert.deepEqual(actualOut, expectedOut);
   });
 
   it('should return first given number(2) of characters for count : 2,context :head', function () {
-
-    assert.deepEqual(getNChars(content, 2, "head"), "1\n");
+    let actualOut = getNChars(content, 2, "head");
+    let expectedOut = "1\n";
+    assert.deepEqual(actualOut,expectedOut);
   });
+
   it('should return the whole string when count > string length and context : head', function () {
-    assert.deepEqual(getNChars(content, 12, "head"), content);
+    let actualOut = getNChars(content, 12, "head");
+    let expectedOut = "1\n2\n3\n4\n5\n6";
+    assert.deepEqual(actualOut,expectedOut);
   });
 });
 
@@ -551,7 +560,7 @@ describe('runCommand() for head', function () {
           assert.deepEqual(actualOut, expectedOut);
         });
       });
-  
+
       describe('for illegal option', function () {
         it("should return illegal option usage error message", function () {
           let args = { option: "v", count: 3, files: ["numbers.txt"] };
