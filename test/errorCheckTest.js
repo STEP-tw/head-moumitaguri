@@ -1,7 +1,7 @@
 const assert = require('assert');
 
 const { isOptionIllegal,
-  isCountIllegal,
+  isHeadCountIllegal,
   isIllegalOffset,
   printHeadIllegalCountError,
   printHeadIllegalOptionUsageErrorMessage,
@@ -23,18 +23,18 @@ describe('isOptionIllegal()', function () {
   });
 });
 
-describe('isCountIllegal()', function () {
+describe('isHeadCountIllegal()', function () {
   it('should return true when count is 0', function () {
-    assert.deepEqual(isCountIllegal(0), true);
+    assert.deepEqual(isHeadCountIllegal(0), true);
   });
   it('should return true when count is negative', function () {
-    assert.deepEqual(isCountIllegal(-1), true);
+    assert.deepEqual(isHeadCountIllegal(-1), true);
   });
   it('should return true when count is NaN', function () {
-    assert.deepEqual(isCountIllegal("n"), true);
+    assert.deepEqual(isHeadCountIllegal("n"), true);
   });
   it('should return false when count is > 1', function () {
-    assert.deepEqual(isCountIllegal(2), false);
+    assert.deepEqual(isHeadCountIllegal(2), false);
   });
 });
 

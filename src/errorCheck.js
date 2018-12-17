@@ -9,7 +9,7 @@ const isOptionIllegal = function (option) {
   return option != "n" && option != "c";
 }
 
-const isCountIllegal = function (count) {
+const isHeadCountIllegal = function (count) {
   return (count < 1 || isNaN(count - 0));
 }
 
@@ -45,7 +45,7 @@ const optionAndUsageError = {
 };
 
 const illegalCount = {
-  head: isCountIllegal,
+  head: isHeadCountIllegal,
   tail: isIllegalOffset
 }
 
@@ -69,7 +69,7 @@ const showError = function (parsedInput, context) {
 
 const hasIllegalInputs = function (parsedInput) {
   return (isOptionIllegal(parsedInput.option)
-    || isCountIllegal(parsedInput.count)
+    || isHeadCountIllegal(parsedInput.count)
     || isIllegalOffset(parsedInput.count))
 }
 
@@ -77,7 +77,7 @@ const hasIllegalInputs = function (parsedInput) {
 
 module.exports = {
   isOptionIllegal,
-  isCountIllegal,
+  isHeadCountIllegal,
   isIllegalOffset,
   printHeadIllegalCountError,
   printHeadIllegalOptionUsageErrorMessage,
