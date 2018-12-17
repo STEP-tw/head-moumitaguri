@@ -11,15 +11,16 @@ const getNChars = function (fileContent, count, context) {
 
 
 const getNLines = function (fileContent, count, context) {
-  if (context == "head") {
-    return fileContent.split("\n").slice(0, count).join("\n");
+  if (context == "tail") {
+    return fileContent
+      .split("\n")
+      .reverse()
+      .slice(0, count)
+      .reverse()
+      .join("\n");
+
   }
-  return fileContent
-    .split("\n")
-    .reverse()
-    .slice(0, count)
-    .reverse()
-    .join("\n");
+  return fileContent.split("\n").slice(0, count).join("\n");
 }
 
 const displayFileName = function (fileName) {
@@ -37,7 +38,7 @@ const addHeader = function (fileContent, fileHeader, files) {
 
 const formatFileContent = function (parsedInputs, context, { existsSync, readFileSync }, file) {
   if (!existsSync(file)) {
-   return printNotFoundError(file, context);
+    return printNotFoundError(file, context);
   }
   return fetchFileContents(parsedInputs, context, readFileSync, file);
 }

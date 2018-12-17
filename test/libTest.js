@@ -36,41 +36,33 @@ describe('getNChars', function () {
 });
 
 describe('getNLines', function () {
-  let content = "1\n2\n3\n4\n5\n6";
-  it('should return empty string for count :0,context: tail ', function () {
-    let actualOut = getNLines(content, 0, "tail");
+  let content = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
+
+  it ('should return by default 10 lines when count is not specified' , function() {
+    let actualOut = getNLines(content);
+    let expectedOut = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
+    assert.equal(actualOut,expectedOut);
+  });
+  it('should return empty string for count 0', function () {
+    let actualOut = getNLines(content, 0);
     let expectedOut = "";
     assert.deepEqual(actualOut, expectedOut);
   });
 
-  it('should return last line when count : 1,context : tail', function () {
-    let actualOut = getNLines(content, 1, "tail");
-    let expectedOut = "6";
-    assert.deepEqual(actualOut, expectedOut);
-  });
-  it('should return last given number(4) of lines when count : 4, context : tail', function () {
-    let actualOut = getNLines(content, 4, "tail");
-    let expectedOut = "3\n4\n5\n6";
-    assert.deepEqual(actualOut, expectedOut);
-  });
-  it('should return whole string when count > string length, context :tail', function () {
-    let actualOut = getNLines(content, 12, "tail");
-    let expectedOut = "1\n2\n3\n4\n5\n6"
-    assert.deepEqual(actualOut, expectedOut);
-  });
-  it('should return first line when count : 1,context : head', function () {
-    let actualOut = getNLines(content, 1, "head");
-    let expectedOut = "1";
-    assert.deepEqual(actualOut, expectedOut);
-  });
-  it('should return first given number(4) of lines when count : 4, context : tail', function () {
-    let actualOut = getNLines(content, 4, "head");
+  it('should return  given number of lines when count is specified', function () {
+    let actualOut = getNLines(content, 4);
     let expectedOut = "1\n2\n3\n4";
     assert.deepEqual(actualOut, expectedOut);
   });
-  it('should return whole string when count > string length, context :head', function () {
-    let actualOut = getNLines(content, 12, "head");
-    let expectedOut = "1\n2\n3\n4\n5\n6";
+  it('should return whole file when count > number of lines in file', function () {
+    let actualOut = getNLines(content, 12);
+    let expectedOut = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10"
+    assert.deepEqual(actualOut, expectedOut);
+  });
+  
+  it('should return last given number of lines when count is specified', function () {
+    let actualOut = getNLines(content, 4, "tail");
+    let expectedOut = "7\n8\n9\n10";
     assert.deepEqual(actualOut, expectedOut);
   });
 });
