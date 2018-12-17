@@ -1,15 +1,6 @@
-const { isOptionIllegal,
-  isCountIllegal,
-  isIllegalOffset,
-  printHeadIllegalCountError,
-  printHeadIllegalOptionUsageErrorMessage,
-  printTailIllegalOffsetError,
-  printTailIllegalOptionUsageError
-} = require('./errorCheck.js');
-
 const { hasIllegalInputs,
   showError
-} = require('../src/errorCheck.js');
+} = require('./errorCheck.js');
 
 const getNChars = function (fileContent, count, context) {
   if (context == "head") {
