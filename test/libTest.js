@@ -11,6 +11,76 @@ const {
     runCommand
 } = require("../src/lib.js");
 
+describe('getNChars()', function () {
+  let content = "1\n2\n3\n4\n5\n6"
+  it('should return empty string for count :0,context: tail ', function () {
+    let actualOut = getNChars(content, 0, "tail");
+    assert.deepEqual(actualOut, "");
+  });
+  it('should return last given number of characters for count : 2,context :tail', function () {
+    let actualOut = getNChars(content, 2, "tail");
+    let expectedOut = "\n6";
+    assert.deepEqual(actualOut,expectedOut);
+  });
+  it('should return the whole string when count > string length and context : tail', function () {
+    let actualOut = getNChars(content, 12, "tail");
+    let expectedOut = "1\n2\n3\n4\n5\n6";
+    assert.deepEqual(actualOut, expectedOut);
+  });
+
+  it('should return first given number(2) of characters for count : 2,context :head', function () {
+    let actualOut = getNChars(content, 2, "head");
+    let expectedOut = "1\n";
+    assert.deepEqual(actualOut,expectedOut);
+  });
+
+  it('should return the whole string when count > string length and context : head', function () {
+    let actualOut = getNChars(content, 12, "head");
+    let expectedOut = "1\n2\n3\n4\n5\n6";
+    assert.deepEqual(actualOut,expectedOut);
+  });
+});
+
+describe('getNLines()', function () {
+  let content = "1\n2\n3\n4\n5\n6";
+  it('should return empty string for count :0,context: tail ', function () {
+    let actualOut = getNLines(content, 0, "tail");
+    let expectedOut = "";
+    assert.deepEqual(actualOut,expectedOut);
+  });
+
+  it('should return last line when count : 1,context : tail', function () {
+    let actualOut = getNLines(content, 1, "tail");
+    let expectedOut = "6";
+    assert.deepEqual(actualOut,expectedOut);
+  });
+  it('should return last given number(4) of lines when count : 4, context : tail', function () {
+    let actualOut = getNLines(content, 4, "tail");
+    let expectedOut = "3\n4\n5\n6";
+    assert.deepEqual(actualOut,expectedOut);
+  });
+  it('should return whole string when count > string length, context :tail', function () {
+    let actualOut = getNLines(content, 12, "tail");
+    let expectedOut = "1\n2\n3\n4\n5\n6"
+    assert.deepEqual(actualOut,expectedOut);
+  });
+  it('should return first line when count : 1,context : head', function () {
+    let actualOut = getNLines(content, 1, "head");
+    let expectedOut = "1";
+    assert.deepEqual(actualOut,expectedOut);
+  });
+  it('should return first given number(4) of lines when count : 4, context : tail', function () {
+    let actualOut = getNLines(content, 4, "head");
+    let expectedOut = "1\n2\n3\n4";
+    assert.deepEqual(actualOut,expectedOut);
+  });
+  it('should return whole string when count > string length, context :head', function () {
+    let actualOut = getNLines(content, 12, "head");
+    let expectedOut = "1\n2\n3\n4\n5\n6";
+    assert.deepEqual(actualOut,expectedOut);
+  });
+});
+
 
 describe("displayFileName()", function () {
   it('should print ==> text  <== for input "text"', function () {
@@ -125,60 +195,7 @@ describe("extractFiles()", function () {
   });
 });
 
-describe('getNChars()', function () {
-  let content = "1\n2\n3\n4\n5\n6"
-  it('should return empty string for count :0,context: tail ', function () {
-    let actualOut = getNChars(content, 0, "tail");
-    assert.deepEqual(actualOut, "");
-  });
-  it('should return last given number of characters for count : 2,context :tail', function () {
-    let actualOut = getNChars(content, 2, "tail");
-    let expectedOut = "\n6";
-    assert.deepEqual(actualOut,expectedOut);
-  });
-  it('should return the whole string when count > string length and context : tail', function () {
-    let actualOut = getNChars(content, 12, "tail");
-    let expectedOut = "1\n2\n3\n4\n5\n6";
-    assert.deepEqual(actualOut, expectedOut);
-  });
 
-  it('should return first given number(2) of characters for count : 2,context :head', function () {
-    let actualOut = getNChars(content, 2, "head");
-    let expectedOut = "1\n";
-    assert.deepEqual(actualOut,expectedOut);
-  });
-
-  it('should return the whole string when count > string length and context : head', function () {
-    let actualOut = getNChars(content, 12, "head");
-    let expectedOut = "1\n2\n3\n4\n5\n6";
-    assert.deepEqual(actualOut,expectedOut);
-  });
-});
-
-describe('getNLines()', function () {
-  content = "1\n2\n3\n4\n5\n6";
-  it('should return empty string for count :0,context: tail ', function () {
-    assert.deepEqual(getNLines(content, 0, "tail"), "");
-  });
-  it('should return last line when count : 1,context : tail', function () {
-    assert.deepEqual(getNLines(content, 1, "tail"), "6");
-  });
-  it('should return last given number(4) of lines when count : 4, context : tail', function () {
-    assert.deepEqual(getNLines(content, 4, "tail"), "3\n4\n5\n6");
-  });
-  it('should return whole string when count > string length, context :tail', function () {
-    assert.deepEqual(getNLines(content, 12, "tail"), content);
-  });
-  it('should return first line when count : 1,context : head', function () {
-    assert.deepEqual(getNLines(content, 1, "head"), "1");
-  });
-  it('should return first given number(4) of lines when count : 4, context : tail', function () {
-    assert.deepEqual(getNLines(content, 4, "head"), "1\n2\n3\n4");
-  });
-  it('should return whole string when count > string length, context :head', function () {
-    assert.deepEqual(getNLines(content, 12, "head"), content);
-  });
-});
 
 describe('runCommand() for tail', function () {
   let file1 = "numbers.txt";
