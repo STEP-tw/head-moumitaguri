@@ -46,12 +46,12 @@ const formatFileContent = function (parsedInputs, context, { existsSync, readFil
 const fetchFileContents = function ({ option, count, files }, context, readFileSync, file) {
   let fileHeader = displayFileName(file) + "\n";
   let content = readFileSync(file, "utf8");
-  let fileContent = selectAndPerformAction(content, option, count, context);
+  let fileContent = selectOptionAndPerformAction(content, option, count, context);
   return addHeader(fileContent, fileHeader, files);
 }
 
 
-const selectAndPerformAction = function (fileContent, option = "n", count, context) {
+const selectOptionAndPerformAction = function (fileContent, option = "n", count, context) {
   let action = {
     n: getNLines,
     c: getNChars
@@ -86,7 +86,7 @@ module.exports = {
   displayFileName,
   formatFileContent,
   fetchFileContents,
-  selectAndPerformAction,
+  selectOptionAndPerformAction,
   extractFiles,
   runCommand
 };
