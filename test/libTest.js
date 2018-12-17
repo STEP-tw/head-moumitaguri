@@ -13,30 +13,24 @@ const {
 
 describe('getNChars', function () {
   let content = "1\n2\n3\n4\n5\n6"
-  it('should return empty string for count :0,context: tail ', function () {
-    let actualOut = getNChars(content, 0, "tail");
+  it('should return empty string for count 0', function () {
+    let actualOut = getNChars(content, 0);
     assert.deepEqual(actualOut, "");
   });
-  it('should return last given number of characters for count : 2,context :tail', function () {
-    let actualOut = getNChars(content, 2, "tail");
-    let expectedOut = "\n6";
-    assert.deepEqual(actualOut, expectedOut);
-  });
-  it('should return the whole string when count > string length and context : tail', function () {
-    let actualOut = getNChars(content, 12, "tail");
-    let expectedOut = "1\n2\n3\n4\n5\n6";
-    assert.deepEqual(actualOut, expectedOut);
-  });
-
-  it('should return first given number(2) of characters for count : 2,context :head', function () {
-    let actualOut = getNChars(content, 2, "head");
+  it('should return guven number of characters when count is specified', function () {
+    let actualOut = getNChars(content, 2);
     let expectedOut = "1\n";
     assert.deepEqual(actualOut, expectedOut);
   });
-
-  it('should return the whole string when count > string length and context : head', function () {
-    let actualOut = getNChars(content, 12, "head");
+  it('should return the whole file when count > number of characters in file', function () {
+    let actualOut = getNChars(content, 12);
     let expectedOut = "1\n2\n3\n4\n5\n6";
+    assert.deepEqual(actualOut, expectedOut);
+  });
+
+  it('should return last given number of characters when count is specified', function () {
+    let actualOut = getNChars(content, 4, "tail");
+    let expectedOut = "\n5\n6";
     assert.deepEqual(actualOut, expectedOut);
   });
 });

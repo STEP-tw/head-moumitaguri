@@ -3,10 +3,10 @@ const { printNotFoundError, hasIllegalInputs,
 } = require('./errorCheck.js');
 
 const getNChars = function (fileContent, count, context) {
-  if (context == "head") {
-    return fileContent.substr(0, count);
+  if (context == "tail") {
+    return fileContent.substr(-count, count);
   }
-  return fileContent.substr(-count, count);
+  return fileContent.substr(0, count);
 }
 
 
