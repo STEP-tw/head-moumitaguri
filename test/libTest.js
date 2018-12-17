@@ -8,9 +8,7 @@ const {
   fetchFileContents,
   selectAndPerformAction,
   extractFiles,
-  // head,
-  // tail,
-  runCommand
+    runCommand
 } = require("../src/lib.js");
 
 
@@ -20,7 +18,6 @@ describe("displayFileName()", function () {
   });
 });
 
-//....readFileSync() ==> mockReadFileSync() to be used for tests
 
 const readFileSync = function (expectedFile, expectedEncoding, expectedContent) {
   return function (actualFile, actualEncoding) {
@@ -50,8 +47,8 @@ const existsSync = function (fileName) {
 const fs = { existsSync, readFileSync };
 
 describe("extractFiles()", function () {
-  let file1 = "numbers.txt";          //file1 : fileName
-  let file2 = "vowels.txt";           //file2 : fileName
+  let file1 = "numbers.txt";
+  let file2 = "vowels.txt";
 
   let expectedFile1Content = "0\n1\n2\n3\n4\n5\n6\n7\n8\n9";
   let expectedFile2Content = "a\ne\ni\no\nu";
@@ -184,10 +181,10 @@ describe('getNLines()', function () {
 });
 
 describe('runCommand() for tail', function () {
-  let file1 = "numbers.txt";          //file1 : fileName 
-  let file2 = "vowels.txt";           //file2 : fileName
-  let file3 = "fifTeenLines.txt"      //file3 : filename
-  let expectedFile1Content = "9\n8\n7\n6\n5\n4\n3\n2\n1\n0"; //10 lines => default number of line =10
+  let file1 = "numbers.txt";
+  let file2 = "vowels.txt";
+  let file3 = "fifTeenLines.txt";
+  let expectedFile1Content = "9\n8\n7\n6\n5\n4\n3\n2\n1\n0";//10 lines => default number of line =10
   let expectedFile2Content = "a\ne\ni\no\nu";                //less than 10 lines
   let expectedFile3Content = "14\n13\n12\n11\n10\n9\n8\n7\n6\n5\n4\n3\n2\n1\n0"; // more than 10 lines
 
@@ -381,9 +378,9 @@ describe('runCommand() for tail', function () {
 
 
 describe('runCommand() for head', function () {
-  let file1 = "numbers.txt";          //file1 : fileName 
-  let file2 = "vowels.txt";           //file2 : fileName
-  let file3 = "fifTeenLines.txt"      //file3 : filename
+  let file1 = "numbers.txt";
+  let file2 = "vowels.txt";
+  let file3 = "fifTeenLines.txt";
   let expectedFile1Content = "0\n1\n2\n3\n4\n5\n6\n7\n8\n9"; //10 lines => default number of line =10
   let expectedFile2Content = "a\ne\ni\no\nu";                //less than 10 lines
   let expectedFile3Content = "0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14"; // more than 10 lines
