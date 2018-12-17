@@ -36,7 +36,7 @@ const addHeader = function (fileContent, fileHeader, files) {
 
 }
 
-const formatFileContent = function (parsedInputs, context, existsSync, readFileSync, file) {
+const formatFileContent = function (parsedInputs, context, { existsSync, readFileSync }, file) {
   if (!existsSync(file)) {
     return context + ": " + file + notFound;
   }
@@ -63,22 +63,21 @@ const selectAndPerformAction = function (fileContent, option = "n", count, conte
 const extractFiles = function (
   { option, count, files },
   context,
-  existsSync,
-  readFileSync
+  fs
 ) {
   let joinWith = "\n\n";
-  let validateFile = formatFileContent.bind(null, { option, count, files }, context, existsSync, readFileSync);
+  let validateFile = formatFileContent.bind(null, { option, count, files }, context, fs);
   return files
     .map(validateFile)
     .join(joinWith);
 };
 
 
-const runCommand = function (parsedInputs, context, { existsSync, readFileSync }) {
+const runCommand = function (parsedInputs, context, fs) {
   if (hasIllegalInputs(parsedInputs)) {
     return showError(parsedInputs, context);
   }
-  return extractFiles(parsedInputs, context, existsSync, readFileSync);
+  return extractFiles(parsedInputs, context, fs);
 }
 
 module.exports = {

@@ -8,7 +8,7 @@ const {
   fetchFileContents,
   selectAndPerformAction,
   extractFiles,
-    runCommand
+  runCommand
 } = require("../src/lib.js");
 
 describe('getNChars()', function () {
@@ -20,7 +20,7 @@ describe('getNChars()', function () {
   it('should return last given number of characters for count : 2,context :tail', function () {
     let actualOut = getNChars(content, 2, "tail");
     let expectedOut = "\n6";
-    assert.deepEqual(actualOut,expectedOut);
+    assert.deepEqual(actualOut, expectedOut);
   });
   it('should return the whole string when count > string length and context : tail', function () {
     let actualOut = getNChars(content, 12, "tail");
@@ -31,13 +31,13 @@ describe('getNChars()', function () {
   it('should return first given number(2) of characters for count : 2,context :head', function () {
     let actualOut = getNChars(content, 2, "head");
     let expectedOut = "1\n";
-    assert.deepEqual(actualOut,expectedOut);
+    assert.deepEqual(actualOut, expectedOut);
   });
 
   it('should return the whole string when count > string length and context : head', function () {
     let actualOut = getNChars(content, 12, "head");
     let expectedOut = "1\n2\n3\n4\n5\n6";
-    assert.deepEqual(actualOut,expectedOut);
+    assert.deepEqual(actualOut, expectedOut);
   });
 });
 
@@ -46,38 +46,38 @@ describe('getNLines()', function () {
   it('should return empty string for count :0,context: tail ', function () {
     let actualOut = getNLines(content, 0, "tail");
     let expectedOut = "";
-    assert.deepEqual(actualOut,expectedOut);
+    assert.deepEqual(actualOut, expectedOut);
   });
 
   it('should return last line when count : 1,context : tail', function () {
     let actualOut = getNLines(content, 1, "tail");
     let expectedOut = "6";
-    assert.deepEqual(actualOut,expectedOut);
+    assert.deepEqual(actualOut, expectedOut);
   });
   it('should return last given number(4) of lines when count : 4, context : tail', function () {
     let actualOut = getNLines(content, 4, "tail");
     let expectedOut = "3\n4\n5\n6";
-    assert.deepEqual(actualOut,expectedOut);
+    assert.deepEqual(actualOut, expectedOut);
   });
   it('should return whole string when count > string length, context :tail', function () {
     let actualOut = getNLines(content, 12, "tail");
     let expectedOut = "1\n2\n3\n4\n5\n6"
-    assert.deepEqual(actualOut,expectedOut);
+    assert.deepEqual(actualOut, expectedOut);
   });
   it('should return first line when count : 1,context : head', function () {
     let actualOut = getNLines(content, 1, "head");
     let expectedOut = "1";
-    assert.deepEqual(actualOut,expectedOut);
+    assert.deepEqual(actualOut, expectedOut);
   });
   it('should return first given number(4) of lines when count : 4, context : tail', function () {
     let actualOut = getNLines(content, 4, "head");
     let expectedOut = "1\n2\n3\n4";
-    assert.deepEqual(actualOut,expectedOut);
+    assert.deepEqual(actualOut, expectedOut);
   });
   it('should return whole string when count > string length, context :head', function () {
     let actualOut = getNLines(content, 12, "head");
     let expectedOut = "1\n2\n3\n4\n5\n6";
-    assert.deepEqual(actualOut,expectedOut);
+    assert.deepEqual(actualOut, expectedOut);
   });
 });
 
@@ -120,73 +120,94 @@ describe("extractFiles()", function () {
   let readNumbers = readFileSync("numbers.txt", "utf8", expectedFile1Content);
   let readVowels = readFileSync("vowels.txt", "utf8", expectedFile2Content);
 
-  it("should return first line of file for the following input,context : head", function () {
-    let args = { option: "n", count: 1, files: ["numbers.txt"] };
-    let actualOut = extractFiles(args, "head", existsSync, readNumbers);
-    let expectedOut = "0";
-    assert.deepEqual(actualOut, expectedOut);
+  describe('for context : head', function () {
+    describe('for single file', function () {
+      let mockFs = { existsSync: existsSync, readFileSync: readNumbers };
+
+      it("should return first line of file for the following input", function () {
+        let args = { option: "n", count: 1, files: ["numbers.txt"] };
+        let actualOut = extractFiles(args, "head", mockFs);
+        let expectedOut = "0";
+        assert.deepEqual(actualOut, expectedOut);
+
+      });
+
+      it("should return first char of file for the following input", function () {
+        let args = { option: "c", count: 1, files: ["numbers.txt"] };
+        let actualOut = extractFiles(args, "head", mockFs);
+        let expectedOut = "0";
+        assert.deepEqual(actualOut, expectedOut);
+      });
+
+      it("should return  first given number of chars of file", function () {
+        let args = { option: "c", count: 2, files: ["numbers.txt"] };
+        let actualOut = extractFiles(args, "head", mockFs);
+        let expectedOut = "0\n";
+        assert.deepEqual(actualOut, expectedOut);
+      });
+    });
+
+    describe('for multiple files', function () {
+      let mockFs = { readFileSync: readVowels, existsSync: existsSync };
+      it("should return first given number of lines", function () {
+        let args = { option: "n", count: 2, files: ["vowels.txt", "vowels.txt"] };
+        let actualOut = extractFiles(args, "head", mockFs);
+        let expectedOut = "==> vowels.txt <==\na\ne\n\n==> vowels.txt <==\na\ne";
+        assert.deepEqual(actualOut, expectedOut);
+      });
+    });
 
   });
 
-  it("should return first char of file for the following input,context : head", function () {
-    let args = { option: "c", count: 1, files: ["numbers.txt"] };
-    let actualOut = extractFiles(args, "head", existsSync, readNumbers);
-    let expectedOut = "0";
-    assert.deepEqual(actualOut, expectedOut);
+  describe('for context : tail', function () {
+    describe('for single file', function () {
+      let mockFs = { readFileSync: readVowels, existsSync: existsSync };
+
+      it("should return last line of file for the following input", function () {
+        let args = { option: "n", count: 1, files: ["vowels.txt"] };
+        let actualOut = extractFiles(args, "tail", mockFs);
+        let expectedOut = "u";
+        assert.deepEqual(actualOut, expectedOut);
+      });
+
+      it("should return last char of file", function () {
+        let args = { option: "c", count: 1, files: ["vowels.txt"] };
+        let actualOut = extractFiles(args, "tail", mockFs);
+        let expectedOut = "u";
+        assert.deepEqual(actualOut, expectedOut);
+      });
+
+      it("should return last given number of chars of file for the given input", function () {
+        let args = { option: "c", count: 2, files: ["vowels.txt"] };
+        let actualOut = extractFiles(args, "tail", mockFs);
+        let expectedOut = "\nu";
+        assert.deepEqual(actualOut, expectedOut);
+      });
+    });
+
+    describe('for multiple files', function () {
+      let mockFs = { readFileSync: readVowels, existsSync: existsSync };
+      it("should return last given number of lines  of  multiple files", function () {
+        let args = { option: "n", count: 2, files: ["vowels.txt", "vowels.txt"] };
+        let actualOut = extractFiles(args, "tail", mockFs);
+        let expectedOut = "==> vowels.txt <==\no\nu\n\n==> vowels.txt <==\no\nu";
+        assert.deepEqual(actualOut, expectedOut);
+      });
+    });
   });
 
-  it("should return  first given number of chars of file ,context :head", function () {
-    let args = { option: "c", count: 2, files: ["numbers.txt"] };
-    let actualOut = extractFiles(args, "head", existsSync, readNumbers);
-    let expectedOut = "0\n";
-    assert.deepEqual(actualOut, expectedOut);
+  describe('for file not found error ', function () {
+    it("should return the not found error message", function () {
+      let fileName = "fileDoesNotExist";
+      let expected = "head: fileDoesNotExist: No such file or directory";
+      let readNotFoundFile = readFileSync(fileName, "utf8", expected);
+      let mockFs = { readFileSync: readNotFoundFile, existsSync: existsSync };
+      let args = { option: "c", count: 2, files: ["fileDoesNotExist"] };
+      let actualOut = extractFiles(args, "head", mockFs);
+      assert.deepEqual(actualOut, expected);
+    });
   });
 
-  it("should return the not found error message", function () {
-    let fileName = "fileDoesNotExist";
-    let expected = "head: fileDoesNotExist: No such file or directory";
-    let readNotFoundFile = readFileSync(fileName, "utf8", expected);
-
-    let args = { option: "c", count: 2, files: ["fileDoesNotExist"] };
-    let actualOut = extractFiles(args, "head", existsSync, readNotFoundFile);
-    let expectedOut = "head: fileDoesNotExist: No such file or directory";
-    assert.deepEqual(actualOut, expectedOut);
-  });
-
-  it("should return first given number of lines  of  multiple files", function () {
-    let args = { option: "n", count: 2, files: ["vowels.txt", "vowels.txt"] };
-    let actualOut = extractFiles(args, "head", existsSync, readVowels);
-    let expectedOut = "==> vowels.txt <==\na\ne\n\n==> vowels.txt <==\na\ne";
-    assert.deepEqual(actualOut, expectedOut);
-  });
-
-  it("should return last line of file for the following input,context : tail", function () {
-    let args = { option: "n", count: 1, files: ["vowels.txt"] };
-    let actualOut = extractFiles(args, "tail", existsSync, readVowels);
-    let expectedOut = "u";
-    assert.deepEqual(actualOut, expectedOut);
-  });
-
-  it("should return last char of file,context :tail", function () {
-    let args = { option: "c", count: 1, files: ["vowels.txt"] };
-    let actualOut = extractFiles(args, "tail", existsSync, readVowels);
-    let expectedOut = "u";
-    assert.deepEqual(actualOut, expectedOut);
-  });
-
-  it("should return last given number of chars of file for the given input,context : tail", function () {
-    let args = { option: "c", count: 2, files: ["vowels.txt"] };
-    let actualOut = extractFiles(args, "tail", existsSync, readNumbers);
-    let expectedOut = "\n9";
-    assert.deepEqual(actualOut, expectedOut);
-  });
-
-  it("should return last given number of lines  of  multiple files,context : tail", function () {
-    let args = { option: "n", count: 2, files: ["vowels.txt", "vowels.txt"] };
-    let actualOut = extractFiles(args, "tail", existsSync, readVowels);
-    let expectedOut = "==> vowels.txt <==\no\nu\n\n==> vowels.txt <==\no\nu";
-    assert.deepEqual(actualOut, expectedOut);
-  });
 });
 
 
