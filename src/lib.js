@@ -1,9 +1,11 @@
 const { printNotFoundError,
   hasIllegalInputs,
   showError,
-  displayFileName,
   addHeader
 } = require('./errorCheck.js');
+
+const { displayFileName
+} = require('./inputOutput/output.js');
 
 const getNChars = function (fileContent, count, context) {
   if (context == "tail") {
@@ -14,7 +16,7 @@ const getNChars = function (fileContent, count, context) {
 
 const getNLines = function (fileContent, count = 10, context) {
   if (context == "tail") {
-    if(+count === 0){
+    if (+count === 0) {
       return "";
     }
     return fileContent
@@ -62,7 +64,7 @@ const extractFiles = function (
 };
 
 const runCommand = function (parsedInputs, context, fs) {
-  if (hasIllegalInputs(parsedInputs,context)) {
+  if (hasIllegalInputs(parsedInputs, context)) {
     return showError(parsedInputs, context);
   }
   return extractFiles(parsedInputs, context, fs);

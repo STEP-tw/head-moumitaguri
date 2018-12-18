@@ -78,9 +78,7 @@ const countError = {
   tail: printTailIllegalOffsetError
 };
 
-const displayFileName = function (fileName) {
-  return "==> " + fileName + " <==";
-};
+
 
 const addHeader = function (fileContent, fileHeader, files) {
   if (files.length > 1) {
@@ -100,6 +98,5 @@ module.exports = {
   printTailIllegalOptionUsageError,
   hasIllegalInputs,
   showError,
-  displayFileName,
   addHeader
 };

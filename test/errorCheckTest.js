@@ -7,7 +7,6 @@ const { isOptionIllegal,
   printHeadIllegalOptionUsageErrorMessage,
   printTailIllegalOffsetError,
   printTailIllegalOptionUsageError,
-  displayFileName
 } = require('../src/errorCheck.js');
 
 
@@ -75,10 +74,3 @@ describe('printTailIllegalOptionUsageError()', function () {
     assert.deepEqual(printTailIllegalOptionUsageError("v"), "tail: illegal option -- v\nusage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]");
   });
 });
-
-describe("displayFileName", function () {
-  it('should print ==> text  <== for input "text"', function () {
-    assert.deepEqual(displayFileName("text"), "==> text <==");
-  });
-});
-
