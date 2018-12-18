@@ -7,6 +7,10 @@ const {
   runCommand
 } = require("../src/lib.js");
 
+const { readFileSync,
+  existsSync
+} = require('./fileUtil.js');
+
 describe('getNChars', function () {
   let content = "1\n2\n3\n4\n5\n6";
   it('should return empty string for count 0', function () {
@@ -34,10 +38,10 @@ describe('getNChars', function () {
 describe('getNLines', function () {
   let content = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
 
-  it ('should return by default 10 lines when count is not specified' , function() {
+  it('should return by default 10 lines when count is not specified', function () {
     let actualOut = getNLines(content);
     let expectedOut = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
-    assert.equal(actualOut,expectedOut);
+    assert.equal(actualOut, expectedOut);
   });
   it('should return empty string for count 0', function () {
     let actualOut = getNLines(content, 0);
@@ -55,37 +59,13 @@ describe('getNLines', function () {
     let expectedOut = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10"
     assert.deepEqual(actualOut, expectedOut);
   });
-  
+
   it('should return last given number of lines when count and context are specified', function () {
     let actualOut = getNLines(content, 4, "tail");
     let expectedOut = "7\n8\n9\n10";
     assert.deepEqual(actualOut, expectedOut);
   });
 });
-
-
-
-
-const readFileSync = function (expectedFile, expectedEncoding, expectedContent) {
-  return function (actualFile, actualEncoding) {
-    const isValidFile = function () {
-      return actualFile == expectedFile;
-    }
-    const isValidEncoding = function () {
-      return actualEncoding == expectedEncoding;
-    }
-    const areValidArgs = function () {
-      return isValidFile && isValidEncoding;
-    }
-    if (areValidArgs) {
-      return expectedContent;
-    }
-  }
-}
-
-const existsSync = function (fileName) {
-  return fileName != "fileDoesNotExist";
-}
 
 describe("extractFiles", function () {
   let file1 = "numbers.txt";
