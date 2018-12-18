@@ -50,7 +50,7 @@ const fetchFileContents = function(
 ) {
   let fileHeader = displayFileName(file) + "\n";
   let content = readFileSync(file, "utf8");
-  let fileContent = selectOptionAndPerformAction(
+  let fileContent = selectOperation(
     content,
     option,
     count,
@@ -59,7 +59,7 @@ const fetchFileContents = function(
   return addHeader(fileContent, fileHeader, files);
 };
 
-const selectOptionAndPerformAction = function(
+const selectOperation = function(
   fileContent,
   option = "n",
   count,
@@ -93,7 +93,7 @@ const runCommand = function(parsedInputs, context, fs) {
 module.exports = {
   getNChars,
   getNLines,
-  selectOptionAndPerformAction,
+  selectOperation,
   extractFiles,
   runCommand
 };
