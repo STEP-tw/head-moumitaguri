@@ -1,6 +1,6 @@
 const { runCommand } = require("./src/lib.js");
 
-const { parseInputs } = require("./src/parseInput.js");
+const { parseInputs } = require("./src/inputOutput/input.js");
 const fs = require('fs');
 
 const main = function () {

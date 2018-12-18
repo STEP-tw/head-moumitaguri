@@ -1,5 +1,5 @@
 const { isOption, isNumber, isDash
-} = require('../src/util.js');
+} = require('../../src/util.js');
 
 
 //case1 example : (a) node ./tail.js -n5 file1
