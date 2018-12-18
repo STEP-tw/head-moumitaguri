@@ -8,6 +8,11 @@ const TAIL_OPTION = "tail: illegal option -- ";
 const TAIL_USAGE = "usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]";
 const TAIL_COUNT = "tail: illegal offset -- ";
 
+const FILE_NOT_FOUND = ": No such file or directory";
+
+const printNotFoundError = function (file, context) {
+  return context + ": " + file + FILE_NOT_FOUND;
+}
 
 const { isOptionIllegal,
   isIllegalCount
@@ -63,5 +68,6 @@ const countError = {
 module.exports = {
   displayFileName,
   addHeader,
-  showError
+  showError,
+  printNotFoundError
 };

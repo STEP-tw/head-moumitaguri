@@ -1,8 +1,4 @@
-const FILE_NOT_FOUND = ": No such file or directory";
 
-const printNotFoundError = function (file, context) {
-  return context + ": " + file + FILE_NOT_FOUND;
-}
 
 
 const hasError = function (parsedInput, context) {
@@ -36,6 +32,5 @@ module.exports = {
   isHeadCountIllegal,
   isIllegalOffset,
   isIllegalCount,
-  printNotFoundError,
   hasError
 };

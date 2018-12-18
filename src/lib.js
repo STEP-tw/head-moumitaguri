@@ -1,8 +1,8 @@
-const { printNotFoundError,
-  hasError
+const { hasError
 } = require('./errorCheck.js');
 
 const { displayFileName,
+  printNotFoundError,
   addHeader,
   showError
 } = require('./output.js');
