@@ -6,15 +6,21 @@ const {
   isIllegalOffset
 } = require("../src/errorCheck.js");
 
-describe("isOptionIllegal()", function() {
-  it("should check if option is n and return false ", function() {
-    assert.deepEqual(isOptionIllegal("n"), false);
+describe("isOptionIllegal", function() {
+  it("should return false when option is n", function() {
+    let actualOut = isOptionIllegal("n");
+    let expectedOut = false;
+    assert.deepEqual(actualOut, expectedOut);
   });
-  it("should check if option is c and return false", function() {
-    assert.deepEqual(isOptionIllegal("c"), false);
+  it("should return false when option is c", function() {
+    let actualOut = isOptionIllegal("c");
+    let expectedOut = false;
+    assert.deepEqual(actualOut, expectedOut);
   });
-  it("should check if option is neither n nor c and return true", function() {
-    assert.deepEqual(isOptionIllegal("t"), true);
+  it("should return true when option is neither n nor c", function() {
+    let actualOut = isOptionIllegal("t");
+    let expectedOut = true;
+    assert.deepEqual(actualOut, expectedOut);
   });
 });
 
