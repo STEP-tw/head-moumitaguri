@@ -93,9 +93,6 @@ const addHeader = function (fileContent, fileHeader, files) {
 }
 
 module.exports = {
-  isOptionIllegal,
-  isHeadCountIllegal,
-  isIllegalOffset,
   printNotFoundError,
   printHeadIllegalCountError,
   printHeadIllegalOptionUsageErrorMessage,
