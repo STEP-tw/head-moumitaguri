@@ -16,9 +16,7 @@ const getNLines = function (fileContent, count, context) {
   if (context == "tail") {
     return fileContent
       .split("\n")
-      .reverse()
-      .slice(0, count)
-      .reverse()
+      .slice(-count)
       .join("\n");
 
   }

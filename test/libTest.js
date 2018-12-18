@@ -3,7 +3,6 @@ const assert = require("assert");
 const {
   getNChars,
   getNLines,
-  displayFileName,
   extractFiles,
   runCommand
 } = require("../src/lib.js");
