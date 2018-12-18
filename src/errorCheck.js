@@ -1,6 +1,3 @@
-
-
-
 const hasError = function (parsedInput, context) {
   return (isOptionIllegal(parsedInput.option)
     || isIllegalCount(parsedInput.count, context));

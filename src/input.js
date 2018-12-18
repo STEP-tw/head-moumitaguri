@@ -1,7 +1,6 @@
 const { isOption, isNumber, isDash
 } = require('./util.js');
 
-
 const areOptionCountTogether = function (args) {
    return args.length >= 3 &&
       isDash(args[0]) &&
@@ -39,7 +38,6 @@ const splitWhenOnlyCountGiven = function (args, parsedInput) {
    return parsedInput;
 }
 
-
 const parseInputs = function (args) {
    let parsedInput = { option: "n", count: 10, files: [...args] };
 
@@ -54,6 +52,5 @@ const parseInputs = function (args) {
    }
    return parsedInput;
 };
-
 
 module.exports = { parseInputs };
