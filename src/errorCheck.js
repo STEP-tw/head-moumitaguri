@@ -1,13 +1,18 @@
-const illegalOption = "head: illegal option -- ";
-const illegalUsage = "usage: head [-n lines | -c bytes] [file ...]";
+const HEAD_OPTION = "head: illegal option -- ";
+const HEAD_USAGE = "usage: head [-n lines | -c bytes] [file ...]";
 
-const illegalByteCount = "head: illegal byte count -- ";
-const illegalLineCount = "head: illegal line count -- ";
+const HEAD_BYTE_COUNT = "head: illegal byte count -- ";
+const HEAD_LINE_COUNT = "head: illegal line count -- ";
 
-const notFound = ": No such file or directory";
+const TAIL_OPTION = "tail: illegal option -- ";
+const TAIL_USAGE = "usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]";
+const TAIL_COUNT = "tail: illegal offset -- ";
+
+
+const FILE_NOT_FOUND = ": No such file or directory";
 
 const printNotFoundError = function (file, context) {
-  return context + ": " + file + notFound;
+  return context + ": " + file + FILE_NOT_FOUND;
 }
 
 const isOptionIllegal = function (option) {
@@ -19,30 +24,25 @@ const isHeadCountIllegal = function (count) {
 }
 
 const printHeadIllegalOptionUsageErrorMessage = function (option) {
-  return illegalOption + option + "\n" + illegalUsage;
+  return HEAD_OPTION + option + "\n" + HEAD_USAGE;
 }
 
 const printHeadIllegalCountError = function (count, option) {
-  if (option == "n") return illegalLineCount + count;
-  return illegalByteCount + count;
+  if (option == "n") return HEAD_LINE_COUNT + count;
+  return HEAD_BYTE_COUNT + count;
 }
 
-const illegalTailOption = "tail: illegal option -- ";
-
-const illegalTailUsage = "usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]";
-
-const illegalOffset = "tail: illegal offset -- ";
 
 const isIllegalOffset = function (count) {
   return (count < 0 || isNaN(+count));
 }
 
 const printTailIllegalOptionUsageError = function (option) {
-  return illegalTailOption + option + "\n" + illegalTailUsage;
+  return TAIL_OPTION + option + "\n" + TAIL_USAGE;
 }
 
 const printTailIllegalOffsetError = function (offset) {
-  return illegalOffset + offset;
+  return TAIL_COUNT + offset;
 }
 const optionAndUsageError = {
   head: printHeadIllegalOptionUsageErrorMessage,
