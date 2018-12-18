@@ -1,5 +1,5 @@
 const { printNotFoundError,
-  hasIllegalInputs
+  hasError
 } = require('./errorCheck.js');
 
 const { displayFileName,
@@ -64,7 +64,7 @@ const extractFiles = function (
 };
 
 const runCommand = function (parsedInputs, context, fs) {
-  if (hasIllegalInputs(parsedInputs, context)) {
+  if (hasError(parsedInputs, context)) {
     return showError(parsedInputs, context);
   }
   return extractFiles(parsedInputs, context, fs);

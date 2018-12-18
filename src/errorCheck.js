@@ -5,7 +5,7 @@ const printNotFoundError = function (file, context) {
 }
 
 
-const hasIllegalInputs = function (parsedInput, context) {
+const hasError = function (parsedInput, context) {
   return (isOptionIllegal(parsedInput.option)
     || isIllegalCount(parsedInput.count, context));
 }
@@ -37,5 +37,5 @@ module.exports = {
   isIllegalOffset,
   isIllegalCount,
   printNotFoundError,
-  hasIllegalInputs
+  hasError
 };
