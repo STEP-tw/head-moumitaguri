@@ -32,7 +32,7 @@
 
 25. deepEqual is not necessary for string
 
-*** lib.js***
+lib.js
 
 1. line 12 : unnecessarily long relative path.
 2. unused code.
@@ -42,3 +42,51 @@
 5. line 48. In formatFileContent() parsedInput has files and there is another argument as file .
 6. too long argument list
 7. context is outside of parsedInput.
+
+utilTest.js
+
+1. line 6 to 11 : misleading functions, unused .
+2. line 15, 22, 28 : tests should be separated.
+
+util.js
+
+1. line 13 : unnecessary comments
+
+parseInputTest.js
+
+1. line 4 : test description should not be in describe.
+2. line 5 to 53 : 'should work' is a wrong statement for it. input and      output should be specified.
+3. line 7 to end : parsedInput should be expected output.
+4. actual output can be separated.
+
+parseInput.js
+
+1. line 7: poor naming
+2. line 7, 14, 23, 29, 39 , 44 : no tests for these functions
+
+errorCheckTest.js
+
+1. no test for printNotFoundError, hasIllegalInputs, showError, addHeader
+2. line 16 19 22 : it statement can be better. 
+3. actual output can be separated.
+4. line 52 55 if statement can be better.
+5. unreadable tests.
+
+errorCheck.js
+
+1. constant variables should be named in caps and use snake case.
+2. line 7, 9, 21, 25, 40, 44 : confusing naming
+3. constant variables should be at first.
+4. hierarchy must be understandable.
+
+lib.js
+
+1. line 44: function name
+
+libTest.js
+
+1. line 11: ";" missing
+2. line 21 : test description should be explicit
+3. line 27, 53 : misleading tests
+4. line 37, 59 : misleading tests
+5. line 97, 98 : readFileSync should not take 3 arguments
