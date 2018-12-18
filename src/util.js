@@ -10,8 +10,6 @@ const isDash = function (option) {
     return option == "-";
 }
 
-//case1 example 
-
 module.exports = {
     isOption,
     isDash,
