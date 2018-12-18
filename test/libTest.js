@@ -8,7 +8,7 @@ const {
 } = require("../src/lib.js");
 
 describe('getNChars', function () {
-  let content = "1\n2\n3\n4\n5\n6"
+  let content = "1\n2\n3\n4\n5\n6";
   it('should return empty string for count 0', function () {
     let actualOut = getNChars(content, 0);
     assert.deepEqual(actualOut, "");
@@ -18,13 +18,13 @@ describe('getNChars', function () {
     let expectedOut = "1\n";
     assert.deepEqual(actualOut, expectedOut);
   });
-  it('should return the whole file when count > number of characters in file', function () {
+  it('should return the whole file when count is greater than number of characters in file', function () {
     let actualOut = getNChars(content, 12);
     let expectedOut = "1\n2\n3\n4\n5\n6";
     assert.deepEqual(actualOut, expectedOut);
   });
 
-  it('should return last given number of characters when count is specified', function () {
+  it('should return last given number of characters when count and context are specified', function () {
     let actualOut = getNChars(content, 4, "tail");
     let expectedOut = "\n5\n6";
     assert.deepEqual(actualOut, expectedOut);
@@ -50,13 +50,13 @@ describe('getNLines', function () {
     let expectedOut = "1\n2\n3\n4";
     assert.deepEqual(actualOut, expectedOut);
   });
-  it('should return whole file when count > number of lines in file', function () {
+  it('should return whole file when count is greater than number of lines in file', function () {
     let actualOut = getNLines(content, 12);
     let expectedOut = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10"
     assert.deepEqual(actualOut, expectedOut);
   });
   
-  it('should return last given number of lines when count is specified', function () {
+  it('should return last given number of lines when count and context are specified', function () {
     let actualOut = getNLines(content, 4, "tail");
     let expectedOut = "7\n8\n9\n10";
     assert.deepEqual(actualOut, expectedOut);
