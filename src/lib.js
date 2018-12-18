@@ -1,5 +1,7 @@
-const { printNotFoundError, hasIllegalInputs,
-  showError
+const { printNotFoundError,
+  hasIllegalInputs,
+  showError,
+  displayFileName
 } = require('./errorCheck.js');
 
 const getNChars = function (fileContent, count, context) {
@@ -8,7 +10,6 @@ const getNChars = function (fileContent, count, context) {
   }
   return fileContent.substr(0, count);
 }
-
 
 const getNLines = function (fileContent, count, context) {
   if (context == "tail") {
@@ -22,11 +23,6 @@ const getNLines = function (fileContent, count, context) {
   }
   return fileContent.split("\n").slice(0, count).join("\n");
 }
-
-const displayFileName = function (fileName) {
-  return "==> " + fileName + " <==";
-};
-
 
 const addHeader = function (fileContent, fileHeader, files) {
   if (files.length > 1) {
@@ -50,7 +46,6 @@ const fetchFileContents = function ({ option, count, files }, context, readFileS
   return addHeader(fileContent, fileHeader, files);
 }
 
-
 const selectOptionAndPerformAction = function (fileContent, option = "n", count, context) {
   let action = {
     n: getNLines,
@@ -58,7 +53,6 @@ const selectOptionAndPerformAction = function (fileContent, option = "n", count,
   };
   return action[option](fileContent, count, context);
 }
-
 
 const extractFiles = function (
   { option, count, files },
@@ -72,7 +66,6 @@ const extractFiles = function (
     .join(joinWith);
 };
 
-
 const runCommand = function (parsedInputs, context, fs) {
   if (hasIllegalInputs(parsedInputs)) {
     return showError(parsedInputs, context);
@@ -83,9 +76,6 @@ const runCommand = function (parsedInputs, context, fs) {
 module.exports = {
   getNChars,
   getNLines,
-  displayFileName,
-  formatFileContent,
-  fetchFileContents,
   selectOptionAndPerformAction,
   extractFiles,
   runCommand

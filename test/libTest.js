@@ -4,9 +4,6 @@ const {
   getNChars,
   getNLines,
   displayFileName,
-  formatFileContent,
-  fetchFileContents,
-  selectAndPerformAction,
   extractFiles,
   runCommand
 } = require("../src/lib.js");
@@ -68,11 +65,6 @@ describe('getNLines', function () {
 });
 
 
-describe("displayFileName", function () {
-  it('should print ==> text  <== for input "text"', function () {
-    assert.deepEqual(displayFileName("text"), "==> text <==");
-  });
-});
 
 
 const readFileSync = function (expectedFile, expectedEncoding, expectedContent) {

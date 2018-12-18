@@ -78,6 +78,9 @@ const hasIllegalInputs = function (parsedInput) {
     || isIllegalOffset(parsedInput.count))
 }
 
+const displayFileName = function (fileName) {
+  return "==> " + fileName + " <==";
+};
 
 
 module.exports = {
@@ -90,5 +93,6 @@ module.exports = {
   printTailIllegalOffsetError,
   printTailIllegalOptionUsageError,
   hasIllegalInputs,
-  showError
+  showError,
+  displayFileName
 };
