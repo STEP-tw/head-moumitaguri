@@ -24,7 +24,7 @@ describe('isNumber', function () {
         let expectedOut = true;
         assert.deepEqual(actualOut, expectedOut);
     });
-    it('should return false when input is NaN', function(){
+    it('should return false when input is NaN', function () {
         let actualOut = isNumber("c");
         let expectedOut = false;
         assert.deepEqual(actualOut, expectedOut);
@@ -32,8 +32,14 @@ describe('isNumber', function () {
 });
 
 describe('isDash()', function () {
-    it('should check if input is - and return true or false', function () {
-        assert.deepEqual(isDash("-"), true);
-        assert.deepEqual(isDash("<"), false);
+    it('should return true when input is dash', function () {
+        let actualOut = isDash("-");
+        let expectedOut = true;
+        assert.deepEqual(actualOut, expectedOut);
+    });
+    it('should return false when input is not dash', function () {
+        let actualOut = isDash("<");
+        let expectedOut = false;
+        assert.deepEqual(actualOut, expectedOut);
     });
 });
