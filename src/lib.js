@@ -1,7 +1,7 @@
 const { hasError } = require("./errorCheck.js");
 
 const {
-  displayFileName,
+  createHeading,
   printNotFoundError,
   addHeader,
   showError
@@ -48,7 +48,7 @@ const fetchFileContents = function(
   readFileSync,
   file
 ) {
-  let fileHeader = displayFileName(file) + "\n";
+  let fileHeader = createHeading(file) + "\n";
   let content = readFileSync(file, "utf8");
   let fileContent = selectOperation(
     content,

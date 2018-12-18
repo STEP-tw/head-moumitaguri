@@ -17,7 +17,7 @@ const printNotFoundError = function(file, context) {
 
 const { isOptionIllegal, isIllegalCount } = require("./errorCheck.js");
 
-const displayFileName = function(fileName) {
+const createHeading = function(fileName) {
   return "==> " + fileName + " <==";
 };
 
@@ -65,7 +65,7 @@ const countError = {
 };
 
 module.exports = {
-  displayFileName,
+  createHeading,
   addHeader,
   showError,
   printNotFoundError
