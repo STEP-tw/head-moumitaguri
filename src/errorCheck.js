@@ -6,7 +6,7 @@ const illegalLineCount = "head: illegal line count -- ";
 
 const notFound = ": No such file or directory";
 
-const printNotFoundError = function(file,context) {
+const printNotFoundError = function (file, context) {
   return context + ": " + file + notFound;
 }
 
@@ -15,7 +15,7 @@ const isOptionIllegal = function (option) {
 }
 
 const isHeadCountIllegal = function (count) {
-  return (count < 1 || isNaN(count - 0));
+  return (count < 1 || isNaN(+count));
 }
 
 const printHeadIllegalOptionUsageErrorMessage = function (option) {
@@ -33,8 +33,8 @@ const illegalTailUsage = "usage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [
 
 const illegalOffset = "tail: illegal offset -- ";
 
-const isIllegalOffset = function (offset) {
-  return isNaN(offset - 0);
+const isIllegalOffset = function (count) {
+  return (count < 0 || isNaN(+count));
 }
 
 const printTailIllegalOptionUsageError = function (option) {
@@ -72,10 +72,9 @@ const showError = function (parsedInput, context) {
   }
 }
 
-const hasIllegalInputs = function (parsedInput) {
+const hasIllegalInputs = function (parsedInput, context) {
   return (isOptionIllegal(parsedInput.option)
-    || isHeadCountIllegal(parsedInput.count)
-    || isIllegalOffset(parsedInput.count))
+    || isIllegalCount(parsedInput.count, context));
 }
 
 const displayFileName = function (fileName) {

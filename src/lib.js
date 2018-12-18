@@ -14,6 +14,9 @@ const getNChars = function (fileContent, count, context) {
 
 const getNLines = function (fileContent, count, context) {
   if (context == "tail") {
+    if(+count === 0){
+      return "";
+    }
     return fileContent
       .split("\n")
       .slice(-count)
@@ -59,7 +62,7 @@ const extractFiles = function (
 };
 
 const runCommand = function (parsedInputs, context, fs) {
-  if (hasIllegalInputs(parsedInputs)) {
+  if (hasIllegalInputs(parsedInputs,context)) {
     return showError(parsedInputs, context);
   }
   return extractFiles(parsedInputs, context, fs);
