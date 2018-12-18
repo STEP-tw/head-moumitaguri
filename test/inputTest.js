@@ -1,55 +1,55 @@
 const assert = require("assert");
 const { parseInputs } = require("../src/input.js");
 
-describe("parseInputs() => should return an object having option : n ,count : 10,files : fileList,key-value-pairs", function () {
-  it('should work for input => headArgs = ["-n5","file"]', function () {
-    headArgs = ["-n5", "file"];
-    parsedInput = { option: "n", count: 5, files: ["file"] };
-    assert.deepEqual(parseInputs(headArgs), parsedInput);
-  });
-  it('should work for input => headArgs = ["-c5","file"]', function () {
-    headArgs = ["-c5", "file"];
-    parsedInput = { option: "c", count: 5, files: ["file"] };
-    assert.deepEqual(parseInputs(headArgs), parsedInput);
-  });
-  it('should work for input => headArgs = ["-n5","file","file2"]', function () {
-    headArgs = ["-n5", "file", "file2"];
-    parsedInput = { option: "n", count: 5, files: ["file", "file2"] };
-    assert.deepEqual(parseInputs(headArgs), parsedInput);
-  });
-  it('should work for input => headArgs = ["-c5","file","file2"]', function () {
-    headArgs = ["-c5", "file", "file2"];
-    parsedInput = { option: "c", count: 5, files: ["file", "file2"] };
-    assert.deepEqual(parseInputs(headArgs), parsedInput);
-  });
-  it('should work for input => headArgs = ["-n", "5","file"]', function () {
-    headArgs = ["-n", "5", "file"];
-    parsedInput = { option: "n", count: 5, files: ["file"] };
-    assert.deepEqual(parseInputs(headArgs), parsedInput);
-  });
-  it('should work for input => headArgs = ["-c", "5","file"]', function () {
-    headArgs = ["-c", "5", "file"];
-    parsedInput = { option: "c", count: 5, files: ["file"] };
-    assert.deepEqual(parseInputs(headArgs), parsedInput);
-  });
-  it('should work for input => headArgs = ["-n",5,"file","file2"]', function () {
-    headArgs = ["-n", "5", "file", "file2"];
-    parsedInput = { option: "n", count: 5, files: ["file", "file2"] };
-    assert.deepEqual(parseInputs(headArgs), parsedInput);
-  });
-  it('should work for input => headArgs = ["-c",5,"file","file2"]', function () {
-    headArgs = ["-c", "5", "file", "file2"];
-    parsedInput = { option: "c", count: 5, files: ["file", "file2"] };
-    assert.deepEqual(parseInputs(headArgs), parsedInput);
-  });
-  it('should work for input => headArgs = ["-5","file"]', function () {
-    headArgs = ["-5", "file"];
-    parsedInput = { option: "n", count: 5, files: ["file"] };
-    assert.deepEqual(parseInputs(headArgs), parsedInput);
-  });
-  it('should work for input => headArgs = ["-5","file","file2"]', function () {
-    headArgs = ["-5", "file", "file2"];
-    parsedInput = { option: "n", count: 5, files: ["file", "file2"] };
-    assert.deepEqual(parseInputs(headArgs), parsedInput);
+describe("parseInputs", function () {
+  describe('should return parsed input object', function () {
+
+    describe('when option and count are given together', function () {
+      it('for single file', function () {
+        let args = ["-n5", "file"];
+        let actualOut = parseInputs(args);
+        let expectedOut = { option: "n", count: 5, files: ["file"] };
+        assert.deepEqual(actualOut, expectedOut);
+      });
+
+      it('for multiple files', function () {
+        let args = ["-n5", "file", "file2"];
+        let actualOut = parseInputs(args);
+        let expectedOut = { option: "n", count: 5, files: ["file", "file2"] };
+        assert.deepEqual(actualOut, expectedOut);
+      });
+    });
+    describe('when option and count are given separately', function () {
+      it('single file', function () {
+        let args = ["-n", "5", "file"];
+        let actualOut = parseInputs(args);
+        expectedOut = { option: "n", count: 5, files: ["file"] };
+        assert.deepEqual(actualOut, expectedOut);
+      });
+
+      it('multiple files', function () {
+        let args = ["-n", "5", "file", "file2"];
+        let actualOut = parseInputs(args);
+        let expectedOut = { option: "n", count: 5, files: ["file", "file2"] };
+        assert.deepEqual(actualOut, expectedOut);
+      });
+    });
+
+    describe('when option is not specified and only count is specified', function () {
+      describe('should return default parsed input object', function () {
+        it('for single file', function () {
+          let args = ["-5", "file"];
+          let actualOut = parseInputs(args);
+          let expectedOut = { option: "n", count: 5, files: ["file"] };
+          assert.deepEqual(actualOut, expectedOut);
+        });
+        it('for multiple files', function () {
+          let args = ["-5", "file", "file2"];
+          let actualOut = parseInputs(args);
+          let expectedOut = { option: "n", count: 5, files: ["file", "file2"] };
+          assert.deepEqual(actualOut, expectedOut);
+        });
+      });
+    });
   });
 });
