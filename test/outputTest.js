@@ -1,7 +1,8 @@
 const assert = require('assert');
 
 const { createHeading,
-    showError
+    showError,
+    printNotFoundError
 } = require('../src/output.js');
 
 describe('createHeading', function () {
@@ -65,5 +66,18 @@ describe('showError', function () {
                 });
             });
         });
+    });
+});
+
+describe ('printNotFoundError' , function() {
+    it ('should return error when context is head' , function() {
+        let actualOut = printNotFoundError("numbers.txt","head");
+        let expectedOut = "head: numbers.txt: No such file or directory";
+        assert.deepEqual(actualOut, expectedOut);
+    });
+    it ('should return error when context is tail' , function() {
+        let actualOut = printNotFoundError("numbers.txt","tail");
+        let expectedOut = "tail: numbers.txt: No such file or directory";
+        assert.deepEqual(actualOut, expectedOut);    
     });
 });
