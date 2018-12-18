@@ -5,7 +5,7 @@ const { printNotFoundError,
 const { displayFileName,
   addHeader,
   showError
-} = require('./inputOutput/output.js');
+} = require('./output.js');
 
 const getNChars = function (fileContent, count, context) {
   if (context == "tail") {

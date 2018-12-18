@@ -11,7 +11,8 @@ const TAIL_COUNT = "tail: illegal offset -- ";
 
 const { isOptionIllegal,
   isIllegalCount
-} = require('../errorCheck.js');
+} = require('./errorCheck.js');
+
 const displayFileName = function (fileName) {
   return "==> " + fileName + " <==";
 };
