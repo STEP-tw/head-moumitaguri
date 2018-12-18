@@ -49,9 +49,13 @@ describe("isHeadCountIllegal", function () {
 
 describe("isIllegalOffset()", function () {
   it("should return false when offset is 0", function () {
-    assert.deepEqual(isIllegalOffset(0), false);
+    let actualOut = isIllegalOffset(0);
+    let expectedOut = false;
+    assert.deepEqual(actualOut, expectedOut);
   });
   it("should return true when offset is NaN", function () {
-    assert.deepEqual(isIllegalOffset("n"), true);
+    let actualOut = isIllegalOffset("n");
+    let expectedOut = true;
+    assert.deepEqual(actualOut, expectedOut);
   });
 });
