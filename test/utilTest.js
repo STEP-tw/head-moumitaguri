@@ -2,26 +2,32 @@ const assert = require('assert');
 
 const { isOption,
     isDash,
-    isNumber,
-    isCase1ValidOptionCount,
-    isCase2ValidOptionCount,
-    isCase3ValidOptionCount,
-    splitArgsForCase1,
-    splitArgsForCase2,
-    splitArgsForCase3
+    isNumber
 } = require('../src/util.js');
 
-describe('isOption()', function () {
-    it('should check if input is NaN and return true or false', function () {
-        assert.deepEqual(isOption("n"), true);
-        assert.deepEqual(isOption(1), false);
+describe('isOption', function () {
+    it('should return true when input is NaN', function () {
+        let actualOut = isOption("n");
+        let expectedOut = true;
+        assert.deepEqual(actualOut, expectedOut);
+    });
+    it('should return false when input is number', function () {
+        let actualOut = isOption(1);
+        let expectedOut = false;
+        assert.deepEqual(actualOut, expectedOut);
     });
 });
 
-describe('isNumber()', function () {
-    it('should check if input is a number and return true or false', function () {
-        assert.deepEqual(isNumber(1), true);
-        assert.deepEqual(isNumber("c"), false);
+describe('isNumber', function () {
+    it('should return true when input is number', function () {
+        let actualOut = isNumber(1);
+        let expectedOut = true;
+        assert.deepEqual(actualOut, expectedOut);
+    });
+    it('should return false when input is NaN', function(){
+        let actualOut = isNumber("c");
+        let expectedOut = false;
+        assert.deepEqual(actualOut, expectedOut);
     });
 });
 
