@@ -29,11 +29,6 @@ const isIllegalCount = function (count, context) {
   return illegalCount[context](count);
 }
 
-const illegalCount = {
-  head: isHeadCountIllegal,
-  tail: isIllegalOffset
-}
-
 const isHeadCountIllegal = function (count) {
   return (count < 1 || isNaN(+count));
 }
@@ -42,6 +37,10 @@ const isIllegalOffset = function (count) {
   return (count < 0 || isNaN(+count));
 }
 
+const illegalCount = {
+  head: isHeadCountIllegal,
+  tail: isIllegalOffset
+}
 
 const showError = function (parsedInput, context) {
   if (isOptionIllegal(parsedInput.option)) {
@@ -52,11 +51,6 @@ const showError = function (parsedInput, context) {
   }
 }
 
-const optionAndUsageError = {
-  head: printHeadIllegalOptionUsageErrorMessage,
-  tail: printTailIllegalOptionUsageError
-};
-
 const printHeadIllegalOptionUsageErrorMessage = function (option) {
   return HEAD_OPTION + option + "\n" + HEAD_USAGE;
 }
@@ -65,9 +59,9 @@ const printTailIllegalOptionUsageError = function (option) {
   return TAIL_OPTION + option + "\n" + TAIL_USAGE;
 }
 
-const countError = {
-  head: printHeadIllegalCountError,
-  tail: printTailIllegalOffsetError
+const optionAndUsageError = {
+  head: printHeadIllegalOptionUsageErrorMessage,
+  tail: printTailIllegalOptionUsageError
 };
 
 const printHeadIllegalCountError = function (count, option) {
@@ -79,7 +73,10 @@ const printTailIllegalOffsetError = function (offset) {
   return TAIL_COUNT + offset;
 }
 
-
+const countError = {
+  head: printHeadIllegalCountError,
+  tail: printTailIllegalOffsetError
+};
 
 const displayFileName = function (fileName) {
   return "==> " + fileName + " <==";
@@ -93,6 +90,9 @@ const addHeader = function (fileContent, fileHeader, files) {
 }
 
 module.exports = {
+  isOptionIllegal,
+  isHeadCountIllegal,
+  isIllegalOffset,
   printNotFoundError,
   printHeadIllegalCountError,
   printHeadIllegalOptionUsageErrorMessage,
