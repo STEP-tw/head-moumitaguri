@@ -1,7 +1,8 @@
 const { printNotFoundError,
   hasIllegalInputs,
   showError,
-  displayFileName
+  displayFileName,
+  addHeader
 } = require('./errorCheck.js');
 
 const getNChars = function (fileContent, count, context) {
@@ -24,13 +25,6 @@ const getNLines = function (fileContent, count, context) {
   return fileContent.split("\n").slice(0, count).join("\n");
 }
 
-const addHeader = function (fileContent, fileHeader, files) {
-  if (files.length > 1) {
-    return fileHeader + fileContent;
-  }
-  return fileContent;
-
-}
 
 const formatFileContent = function (parsedInputs, context, { existsSync, readFileSync }, file) {
   if (!existsSync(file)) {
