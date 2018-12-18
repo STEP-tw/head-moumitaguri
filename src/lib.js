@@ -1,10 +1,10 @@
 const { printNotFoundError,
   hasIllegalInputs,
-  showError,
-  addHeader
+  showError
 } = require('./errorCheck.js');
 
-const { displayFileName
+const { displayFileName,
+  addHeader
 } = require('./inputOutput/output.js');
 
 const getNChars = function (fileContent, count, context) {
