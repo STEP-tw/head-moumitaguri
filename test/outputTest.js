@@ -21,20 +21,48 @@ describe('showError', function () {
             expectedOut += "\nusage: head [-n lines | -c bytes] [file ...]";
             assert.deepEqual(actualOut, expectedOut);
         });
+        it('for tail', function () {
+            let input = { option: "p", count: 3, files: ["numbers.txt"] };
+            let actualOut = showError(input, "tail");
+            let expectedOut = "tail: illegal option -- p";
+            expectedOut += "\nusage: tail [-F | -f | -r] [-q] [-b # | -c # | -n #] [file ...]";
+            assert.deepEqual(actualOut, expectedOut);
+        });
     });
+
     describe('should return error when count is illegal', function () {
         describe('for head', function () {
-            it('when count is 0', function () {
+            it('line count error when count is 0 ', function () {
                 let input = { option: "n", count: 0, files: ["numbers.txt"] };
                 let actualOut = showError(input, "head");
                 let expectedOut = "head: illegal line count -- 0";
                 assert.deepEqual(actualOut, expectedOut);
             });
-            it('when count is negative', function () {
+            it('byte count error when count is 0 ', function () {
+                let input = { option: "c", count: 0, files: ["numbers.txt"] };
+                let actualOut = showError(input, "head");
+                let expectedOut = "head: illegal byte count -- 0";
+                assert.deepEqual(actualOut, expectedOut);
+            });
+            it('line count error when count is negative', function () {
                 let input = { option: "n", count: -4, files: ["numbers.txt"] };
                 let actualOut = showError(input, "head");
                 let expectedOut = "head: illegal line count -- -4"
                 assert.deepEqual(actualOut, expectedOut);
+            });
+            it('line count error when count is NaN', function () {
+                let input = { option: "n", count: "u", files: ["numbers.txt"] };
+                let actualOut = showError(input, "head");
+                let expectedOut = "head: illegal line count -- u";
+                assert.deepEqual(actualOut, expectedOut);
+            });
+            describe('for tail', function () {
+                it('when count is NaN', function () {
+                    let input = { option: "n", count: "u", files: ["numbers.txt"] };
+                    let actualOut = showError(input, "tail");
+                    let expectedOut = "tail: illegal offset -- u";
+                    assert.deepEqual(actualOut, expectedOut);
+                });
             });
         });
     });
