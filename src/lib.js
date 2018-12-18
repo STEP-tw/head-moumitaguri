@@ -1,20 +1,20 @@
-const { hasError
-} = require('./errorCheck.js');
+const { hasError } = require("./errorCheck.js");
 
-const { displayFileName,
+const {
+  displayFileName,
   printNotFoundError,
   addHeader,
   showError
-} = require('./output.js');
+} = require("./output.js");
 
-const getNChars = function (fileContent, count, context) {
+const getNChars = function(fileContent, count, context) {
   if (context == "tail") {
     return fileContent.substr(-count, count);
   }
   return fileContent.substr(0, count);
-}
+};
 
-const getNLines = function (fileContent, count = 10, context) {
+const getNLines = function(fileContent, count = 10, context) {
   if (context == "tail") {
     if (+count === 0) {
       return "";
@@ -23,52 +23,72 @@ const getNLines = function (fileContent, count = 10, context) {
       .split("\n")
       .slice(-count)
       .join("\n");
-
   }
-  return fileContent.split("\n").slice(0, count).join("\n");
-}
+  return fileContent
+    .split("\n")
+    .slice(0, count)
+    .join("\n");
+};
 
-
-const formatFileContent = function (parsedInputs, context, { existsSync, readFileSync }, file) {
+const formatFileContent = function(
+  parsedInputs,
+  context,
+  { existsSync, readFileSync },
+  file
+) {
   if (!existsSync(file)) {
     return printNotFoundError(file, context);
   }
   return fetchFileContents(parsedInputs, context, readFileSync, file);
-}
+};
 
-const fetchFileContents = function ({ option, count, files }, context, readFileSync, file) {
+const fetchFileContents = function(
+  { option, count, files },
+  context,
+  readFileSync,
+  file
+) {
   let fileHeader = displayFileName(file) + "\n";
   let content = readFileSync(file, "utf8");
-  let fileContent = selectOptionAndPerformAction(content, option, count, context);
+  let fileContent = selectOptionAndPerformAction(
+    content,
+    option,
+    count,
+    context
+  );
   return addHeader(fileContent, fileHeader, files);
-}
+};
 
-const selectOptionAndPerformAction = function (fileContent, option = "n", count, context) {
+const selectOptionAndPerformAction = function(
+  fileContent,
+  option = "n",
+  count,
+  context
+) {
   let action = {
     n: getNLines,
     c: getNChars
   };
   return action[option](fileContent, count, context);
-}
-
-const extractFiles = function (
-  { option, count, files },
-  context,
-  fs
-) {
-  let joinWith = "\n\n";
-  let validateFile = formatFileContent.bind(null, { option, count, files }, context, fs);
-  return files
-    .map(validateFile)
-    .join(joinWith);
 };
 
-const runCommand = function (parsedInputs, context, fs) {
+const extractFiles = function({ option, count, files }, context, fs) {
+  let joinWith = "\n\n";
+  let validateFile = formatFileContent.bind(
+    null,
+    { option, count, files },
+    context,
+    fs
+  );
+  return files.map(validateFile).join(joinWith);
+};
+
+const runCommand = function(parsedInputs, context, fs) {
   if (hasError(parsedInputs, context)) {
     return showError(parsedInputs, context);
   }
   return extractFiles(parsedInputs, context, fs);
-}
+};
 
 module.exports = {
   getNChars,
