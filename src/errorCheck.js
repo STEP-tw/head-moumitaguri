@@ -15,53 +15,33 @@ const printNotFoundError = function (file, context) {
   return context + ": " + file + FILE_NOT_FOUND;
 }
 
+
+const hasIllegalInputs = function (parsedInput, context) {
+  return (isOptionIllegal(parsedInput.option)
+    || isIllegalCount(parsedInput.count, context));
+}
+
 const isOptionIllegal = function (option) {
   return option != "n" && option != "c";
-}
-
-const isHeadCountIllegal = function (count) {
-  return (count < 1 || isNaN(+count));
-}
-
-const printHeadIllegalOptionUsageErrorMessage = function (option) {
-  return HEAD_OPTION + option + "\n" + HEAD_USAGE;
-}
-
-const printHeadIllegalCountError = function (count, option) {
-  if (option == "n") return HEAD_LINE_COUNT + count;
-  return HEAD_BYTE_COUNT + count;
-}
-
-
-const isIllegalOffset = function (count) {
-  return (count < 0 || isNaN(+count));
-}
-
-const printTailIllegalOptionUsageError = function (option) {
-  return TAIL_OPTION + option + "\n" + TAIL_USAGE;
-}
-
-const printTailIllegalOffsetError = function (offset) {
-  return TAIL_COUNT + offset;
-}
-const optionAndUsageError = {
-  head: printHeadIllegalOptionUsageErrorMessage,
-  tail: printTailIllegalOptionUsageError
-};
-
-const illegalCount = {
-  head: isHeadCountIllegal,
-  tail: isIllegalOffset
 }
 
 const isIllegalCount = function (count, context) {
   return illegalCount[context](count);
 }
 
-const countError = {
-  head: printHeadIllegalCountError,
-  tail: printTailIllegalOffsetError
-};
+const illegalCount = {
+  head: isHeadCountIllegal,
+  tail: isIllegalOffset
+}
+
+const isHeadCountIllegal = function (count) {
+  return (count < 1 || isNaN(+count));
+}
+
+const isIllegalOffset = function (count) {
+  return (count < 0 || isNaN(+count));
+}
+
 
 const showError = function (parsedInput, context) {
   if (isOptionIllegal(parsedInput.option)) {
@@ -72,10 +52,34 @@ const showError = function (parsedInput, context) {
   }
 }
 
-const hasIllegalInputs = function (parsedInput, context) {
-  return (isOptionIllegal(parsedInput.option)
-    || isIllegalCount(parsedInput.count, context));
+const optionAndUsageError = {
+  head: printHeadIllegalOptionUsageErrorMessage,
+  tail: printTailIllegalOptionUsageError
+};
+
+const printHeadIllegalOptionUsageErrorMessage = function (option) {
+  return HEAD_OPTION + option + "\n" + HEAD_USAGE;
 }
+
+const printTailIllegalOptionUsageError = function (option) {
+  return TAIL_OPTION + option + "\n" + TAIL_USAGE;
+}
+
+const countError = {
+  head: printHeadIllegalCountError,
+  tail: printTailIllegalOffsetError
+};
+
+const printHeadIllegalCountError = function (count, option) {
+  if (option == "n") return HEAD_LINE_COUNT + count;
+  return HEAD_BYTE_COUNT + count;
+}
+
+const printTailIllegalOffsetError = function (offset) {
+  return TAIL_COUNT + offset;
+}
+
+
 
 const displayFileName = function (fileName) {
   return "==> " + fileName + " <==";
