@@ -62,6 +62,11 @@ describe("getNLines", function() {
     let expectedOut = "7\n8\n9\n10";
     assert.deepEqual(actualOut, expectedOut);
   });
+  it("should return empty string when count is 0 and context is tail", function(){
+    let actualOut = getNLines(content, 0, "tail");
+    let expectedOut = "";
+    assert.deepEqual(actualOut, expectedOut);
+  });
 });
 
 describe("extractFiles", function() {
