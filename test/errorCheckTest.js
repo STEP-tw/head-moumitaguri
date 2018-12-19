@@ -3,7 +3,8 @@ const assert = require("assert");
 const {
   isOptionIllegal,
   isHeadCountIllegal,
-  isIllegalOffset
+  isIllegalOffset,
+  isIllegalCount
 } = require("../src/errorCheck.js");
 
 describe("isOptionIllegal", function () {
@@ -56,6 +57,19 @@ describe("isIllegalOffset()", function () {
   it("should return true when offset is NaN", function () {
     let actualOut = isIllegalOffset("n");
     let expectedOut = true;
+    assert.deepEqual(actualOut, expectedOut);
+  });
+});
+
+describe('isIllegalCount', function () {
+  it('should return true when count is 0 and context is head', function () {
+    let actualOut = isIllegalCount(0, "head");
+    let expectedOut = true;
+    assert.deepEqual(actualOut, expectedOut);
+  });
+  it('should return false when count is 0 and context is tail ', function () {
+    let actualOut = isIllegalCount(0, "tail");
+    let expectedOut = false;
     assert.deepEqual(actualOut, expectedOut);
   });
 });
