@@ -7,15 +7,14 @@ const {
   showError
 } = require("./output.js");
 
-const getNChars = function (fileContent, count, context) {
-  let limit = { 'upper': count, 'lower': 0 };
+const getNChars = function(fileContent, count, context) {
   if (context == "tail") {
-    limit.lower = -count;
+    return fileContent.substr(-count, count);
   }
-  return fileContent.substr(limit.lower, limit.upper)
+  return fileContent.substr(0, count);
 };
 
-const getNLines = function (fileContent, count = 10, context) {
+const getNLines = function(fileContent, count = 10, context) {
   if (context == "tail") {
     if (+count === 0) {
       return "";
@@ -31,7 +30,7 @@ const getNLines = function (fileContent, count = 10, context) {
     .join("\n");
 };
 
-const formatFileContent = function (
+const formatFileContent = function(
   parsedInputs,
   context,
   { existsSync, readFileSync },
@@ -43,7 +42,7 @@ const formatFileContent = function (
   return fetchFileContents(parsedInputs, context, readFileSync, file);
 };
 
-const fetchFileContents = function (
+const fetchFileContents = function(
   { option, count, files },
   context,
   readFileSync,
@@ -60,7 +59,7 @@ const fetchFileContents = function (
   return addHeader(fileContent, fileHeader, files);
 };
 
-const selectOperation = function (
+const selectOperation = function(
   fileContent,
   option = "n",
   count,
@@ -73,7 +72,7 @@ const selectOperation = function (
   return action[option](fileContent, count, context);
 };
 
-const extractFiles = function ({ option, count, files }, context, fs) {
+const extractFiles = function({ option, count, files }, context, fs) {
   let joinWith = "\n\n";
   let validateFile = formatFileContent.bind(
     null,
@@ -84,7 +83,7 @@ const extractFiles = function ({ option, count, files }, context, fs) {
   return files.map(validateFile).join(joinWith);
 };
 
-const runCommand = function (parsedInputs, context, fs) {
+const runCommand = function(parsedInputs, context, fs) {
   if (hasError(parsedInputs, context)) {
     return showError(parsedInputs, context);
   }
