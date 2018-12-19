@@ -58,7 +58,7 @@ const fetchFileContents = function (
 
 const selectOperation = function (
   fileContent,
-  option = "n",
+  option,
   count,
   context
 ) {
