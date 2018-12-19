@@ -7,14 +7,14 @@ const {
   showError
 } = require("./output.js");
 
-const getNChars = function(fileContent, count, context) {
+const getNChars = function (fileContent, count, context) {
   if (context == "tail") {
     return fileContent.substr(-count, count);
   }
   return fileContent.substr(0, count);
 };
 
-const getNLines = function(fileContent, count = 10, context) {
+const getNLines = function (fileContent, count = 10, context) {
   if (context == "tail") {
     if (+count === 0) {
       return "";
@@ -30,19 +30,16 @@ const getNLines = function(fileContent, count = 10, context) {
     .join("\n");
 };
 
-const formatFileContent = function(
-  parsedInputs,
-  context,
-  { existsSync, readFileSync },
-  file
-) {
+const formatFileContent = function (parsedInputs, context, { existsSync, readFileSync }, file) {
+  let fileDetail = { fileContent: "", error: "" };
   if (!existsSync(file)) {
-    return printNotFoundError(file, context);
+    fileDetail.error = printNotFoundError(file, context);
   }
-  return fetchFileContents(parsedInputs, context, readFileSync, file);
+  fileDetail.fileContent = fetchFileContents(parsedInputs, context, readFileSync, file);
+  return fileDetail;
 };
 
-const fetchFileContents = function(
+const fetchFileContents = function (
   { option, count, files },
   context,
   readFileSync,
@@ -59,7 +56,7 @@ const fetchFileContents = function(
   return addHeader(fileContent, fileHeader, files);
 };
 
-const selectOperation = function(
+const selectOperation = function (
   fileContent,
   option = "n",
   count,
@@ -72,7 +69,7 @@ const selectOperation = function(
   return action[option](fileContent, count, context);
 };
 
-const extractFiles = function({ option, count, files }, context, fs) {
+const extractFiles = function ({ option, count, files }, context, fs) {
   let joinWith = "\n\n";
   let validateFile = formatFileContent.bind(
     null,
@@ -80,10 +77,10 @@ const extractFiles = function({ option, count, files }, context, fs) {
     context,
     fs
   );
-  return files.map(validateFile).join(joinWith);
+  return files.map(validateFile).map(x => x.error || x.fileContent).join(joinWith);
 };
 
-const runCommand = function(parsedInputs, context, fs) {
+const runCommand = function (parsedInputs, context, fs) {
   if (hasError(parsedInputs, context)) {
     return showError(parsedInputs, context);
   }
