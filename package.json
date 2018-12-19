@@ -1,13 +1,14 @@
 {
   "name": "headtail",
   "version": "1.0.0",
-  "description": "usages of head and tail",
+  "description": " usages of head and tail",
   "main": "head.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --recursive"
+    "start": "node head.js head.js"
   },
   "repository": {
     "type": "git",
