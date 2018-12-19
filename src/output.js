@@ -32,9 +32,7 @@ const showError = function ({ option, count }, context) {
   if (isOptionIllegal(option)) {
     return showOptionUsageError(option, context);
   }
-  if (isIllegalCount(count, context)) {
-    return countError[context](count, option);
-  }
+  return countError[context](count, option);
 };
 
 const showOptionUsageError = function (option, context) {
