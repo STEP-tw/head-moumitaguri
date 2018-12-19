@@ -14,7 +14,7 @@ const getNChars = function (fileContent, count, context) {
   return fileContent.substr(0, count);
 };
 
-const getNLines = function (fileContent, count = 10, context) {
+const getNLines = function (fileContent, count, context) {
   if (context == "tail") {
     if (+count === 0) {
       return "";
