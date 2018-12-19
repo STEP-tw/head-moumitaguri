@@ -11,51 +11,46 @@ const TAIL_COUNT = "tail: illegal offset -- ";
 
 const FILE_NOT_FOUND = ": No such file or directory";
 
-const printNotFoundError = function(file, context) {
+const printNotFoundError = function (file, context) {
   return context + ": " + file + FILE_NOT_FOUND;
 };
 
 const { isOptionIllegal, isIllegalCount } = require("./errorCheck.js");
 
-const createHeading = function(fileName) {
+const createHeading = function (fileName) {
   return "==> " + fileName + " <==";
 };
 
-const addHeader = function(fileContent, fileHeader, files) {
+const addHeader = function (fileContent, fileHeader, files) {
   if (files.length > 1) {
     return fileHeader + fileContent;
   }
   return fileContent;
 };
 
-const showError = function(parsedInput, context) {
-  if (isOptionIllegal(parsedInput.option)) {
-    return optionAndUsageError[context](parsedInput.option);
+const showError = function ({ option, count }, context) {
+  if (isOptionIllegal(option)) {
+    return showOptionUsageError(option, context);
   }
-  if (isIllegalCount(parsedInput.count, context)) {
-    return countError[context](parsedInput.count, parsedInput.option);
+  if (isIllegalCount(count, context)) {
+    return countError[context](count, option);
   }
 };
 
-const printHeadIllegalOptionUsageErrorMessage = function(option) {
-  return HEAD_OPTION + option + "\n" + HEAD_USAGE;
-};
+const showOptionUsageError = function (option, context) {
+  let error = {
+    head: HEAD_OPTION + option + "\n" + HEAD_USAGE,
+    tail: TAIL_OPTION + option + "\n" + TAIL_USAGE
+  }
+  return error[context];
+}
 
-const printTailIllegalOptionUsageError = function(option) {
-  return TAIL_OPTION + option + "\n" + TAIL_USAGE;
-};
-
-const optionAndUsageError = {
-  head: printHeadIllegalOptionUsageErrorMessage,
-  tail: printTailIllegalOptionUsageError
-};
-
-const printHeadIllegalCountError = function(count, option) {
+const printHeadIllegalCountError = function (count, option) {
   if (option == "n") return HEAD_LINE_COUNT + count;
   return HEAD_BYTE_COUNT + count;
 };
 
-const printTailIllegalOffsetError = function(offset) {
+const printTailIllegalOffsetError = function (offset) {
   return TAIL_COUNT + offset;
 };
 
