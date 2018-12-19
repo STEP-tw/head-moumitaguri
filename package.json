@@ -1,0 +1,25 @@
+{
+  "name": "headtail",
+  "version": "1.0.0",
+  "description": "usages of head and tail",
+  "main": "head.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STEP-tw/head-moumitaguri.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/STEP-tw/head-moumitaguri/issues"
+  },
+  "homepage": "https://github.com/STEP-tw/head-moumitaguri#readme",
+  "dependencies": {
+    "mocha": "^5.2.0"
+  }
+}
