@@ -1,5 +1,7 @@
 const { hasError } = require("./errorCheck.js");
 
+const { getSubstr, splitContent } = require("./util.js");
+
 const {
   createHeading,
   printNotFoundError,
@@ -8,26 +10,23 @@ const {
 } = require("./output.js");
 
 const getNChars = function (fileContent, count, context) {
+  let limit = { upper: count, lower: 0 };
   if (context == "tail") {
-    return fileContent.substr(-count, count);
+    limit.lower = -count;
   }
-  return fileContent.substr(0, count);
+  return getSubstr(fileContent, limit);
 };
 
 const getNLines = function (fileContent, count, context) {
+  let limit = { upper: count, lower: 0 };
   if (context == "tail") {
     if (+count === 0) {
       return "";
     }
-    return fileContent
-      .split("\n")
-      .slice(-count)
-      .join("\n");
+    limit.lower = -count;
+    limit.upper = undefined;
   }
-  return fileContent
-    .split("\n")
-    .slice(0, count)
-    .join("\n");
+  return splitContent(fileContent, limit);
 };
 
 const formatFileContent = function (parsedInputs, context, { existsSync, readFileSync }, file) {
