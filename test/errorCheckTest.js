@@ -48,7 +48,7 @@ describe("isHeadCountIllegal", function () {
   });
 });
 
-describe("isIllegalOffset()", function () {
+describe("isIllegalOffset", function () {
   it("should return false when offset is 0", function () {
     let actualOut = isIllegalOffset(0);
     let expectedOut = false;

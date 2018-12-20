@@ -28,7 +28,7 @@ describe("isNumber", function() {
   });
 });
 
-describe("isDash()", function() {
+describe("isDash", function() {
   it("should return true when input is dash", function() {
     let actualOut = isDash("-");
     let expectedOut = true;
