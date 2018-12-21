@@ -10,14 +10,14 @@ const isDash = function(option) {
   return option == "-";
 };
 
-const splitContent = function(string,bounds) {
+const splitContent = function(content,bounds) {
   let { upper, lower } = bounds;
-  return string.split("\n").slice(lower,upper).join("\n");
+  return content.split("\n").slice(lower,upper).join("\n");
 }
 
-const getSubstr = function(string,bounds) {
+const getSubstr = function(content,bounds) {
  let { upper, lower } = bounds;
- return string.substr(lower,upper);
+ return content.substr(lower,upper);
 }
 
 
