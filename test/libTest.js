@@ -11,16 +11,16 @@ const { readFileSync, existsSync } = require("./fileUtil.js");
 describe("getNChars", function() {
   let content = "1\n2\n3\n4\n5\n6";
   it("should return empty string for count 0", function() {
-    let actualOut = getNChars(content, 0);
+    let actualOut = getNChars(content, 0, "head");
     assert.deepEqual(actualOut, "");
   });
   it("should return guven number of characters when count is specified", function() {
-    let actualOut = getNChars(content, 2);
+    let actualOut = getNChars(content, 2, "head");
     let expectedOut = "1\n";
     assert.deepEqual(actualOut, expectedOut);
   });
   it("should return the whole file when count is greater than number of characters in file", function() {
-    let actualOut = getNChars(content, 12);
+    let actualOut = getNChars(content, 12, "head");
     let expectedOut = "1\n2\n3\n4\n5\n6";
     assert.deepEqual(actualOut, expectedOut);
   });
@@ -35,24 +35,19 @@ describe("getNChars", function() {
 describe("getNLines", function() {
   let content = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
 
-  it("should return by default 10 lines when count is not specified", function() {
-    let actualOut = getNLines(content);
-    let expectedOut = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
-    assert.equal(actualOut, expectedOut);
-  });
   it("should return empty string for count 0", function() {
-    let actualOut = getNLines(content, 0);
+    let actualOut = getNLines(content, 0, "head");
     let expectedOut = "";
     assert.deepEqual(actualOut, expectedOut);
   });
 
   it("should return  given number of lines when count is specified", function() {
-    let actualOut = getNLines(content, 4);
+    let actualOut = getNLines(content, 4, "head");
     let expectedOut = "1\n2\n3\n4";
     assert.deepEqual(actualOut, expectedOut);
   });
   it("should return whole file when count is greater than number of lines in file", function() {
-    let actualOut = getNLines(content, 12);
+    let actualOut = getNLines(content, 12, "head");
     let expectedOut = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
     assert.deepEqual(actualOut, expectedOut);
   });
