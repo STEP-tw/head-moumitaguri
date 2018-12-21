@@ -52,11 +52,12 @@ describe ('getSubstr' , function() {
 });
 
 describe ('splitContent' , function() {
-  it ('should return splitted string of the specified string according to the specified bounds' , function() {
+  it ('should return splitted string of the specified string according to the specified bounds and delimiter' , function() {
     let bound = { lower : 0, upper : 3 };
     let content = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
-    let actualOut = splitContent(content, bound);
+    let actualOut = splitContent(content, bound, "\n");
     let expectedOut = "1\n2\n3";
     assert.deepEqual(actualOut, expectedOut);
   });
+
 });

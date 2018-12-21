@@ -1,23 +1,23 @@
-const isOption = function(option) {
+const isOption = function (option) {
   return isNaN(option);
 };
 
-const isNumber = function(count) {
+const isNumber = function (count) {
   return !isNaN(count);
 };
 
-const isDash = function(option) {
+const isDash = function (option) {
   return option == "-";
 };
 
-const splitContent = function(content,bounds) {
+const splitContent = function (content, bounds,delimiter) {
   let { upper, lower } = bounds;
-  return content.split("\n").slice(lower,upper).join("\n");
+  return content.split(delimiter).slice(lower, upper).join(delimiter);
 }
 
-const getSubstr = function(content,bounds) {
- let { upper, lower } = bounds;
- return content.substr(lower,upper);
+const getSubstr = function (content, bounds) {
+  let { upper, lower } = bounds;
+  return content.substr(lower, upper);
 }
 
 
