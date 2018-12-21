@@ -1,6 +1,6 @@
 const { hasError } = require("./errorCheck.js");
 
-const { getSubstr, splitContent } = require("./util.js");
+const { splitContent } = require("./util.js");
 
 const {
   createHeading,
@@ -16,7 +16,6 @@ const getBounds = function (count, headOrTail) {
   };
   return bounds[headOrTail];
 }
-
 
 const getNChars = function (fileContent, count, context) {
   const bounds = getBounds(count,context);
@@ -89,6 +88,7 @@ const runCommand = function (parsedInputs, context, fs) {
 };
 
 module.exports = {
+  getBounds,
   getNChars,
   getNLines,
   selectOperation,

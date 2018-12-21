@@ -1,5 +1,6 @@
 const assert = require("assert");
 const {
+  getBounds,
   getNChars,
   getNLines,
   extractFiles,
@@ -7,6 +8,18 @@ const {
 } = require("../src/lib.js");
 
 const { readFileSync, existsSync } = require("./fileUtil.js");
+
+describe ('getBounds' , function() {
+  describe ('should return bounds object according to the specified count and  headOrTail' , function() {
+  it ('should return head bounds object ' , function() {
+    let count = 3;
+    let headOrTail = "head";
+    let actualOut = getBounds(count, headOrTail);
+    let expectedOut = { upper : count, lower : 0 };
+    assert.deepEqual(actualOut, expectedOut);
+  });
+  });
+});
 
 describe("getNChars", function() {
   let content = "1\n2\n3\n4\n5\n6";
