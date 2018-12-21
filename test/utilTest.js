@@ -1,6 +1,6 @@
 const assert = require("assert");
 
-const { isOption, isDash, isNumber, getSubstr, splitContent } = require("../src/util.js");
+const { isOption, isDash, isNumber, splitContent } = require("../src/util.js");
 
 describe("isOption", function() {
   it("should return true when input is NaN", function() {
@@ -41,15 +41,6 @@ describe("isDash", function() {
   });
 });
 
-describe ('getSubstr' , function() {
-  it('should return substring of the specified string according to the bounds', function(){
-    let bound = { lower : 0, upper : 2 };
-    let content = "1\n2\n3\n4\n5\n6\n7\n8\n9\n10";
-    let actualOut = getSubstr(content, bound);
-    let expectedOut = "1\n"
-    assert.deepEqual(actualOut, expectedOut);
-  });
-});
 
 describe ('splitContent' , function() {
   it ('should return splitted string of the specified string according to the specified bounds and delimiter' , function() {
