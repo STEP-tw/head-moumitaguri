@@ -30,12 +30,10 @@ const getNLines = function (fileContent, count, context) {
 };
 
 const formatFileContent = function (parsedInputs, context, { existsSync, readFileSync }, file) {
-  let fileDetail = { fileContent: "", error: "" };
   if (!existsSync(file)) {
-    fileDetail.error = printNotFoundError(file, context);
+    return printNotFoundError(file, context);
   }
-  fileDetail.fileContent = fetchFileContents(parsedInputs, context, readFileSync, file);
-  return fileDetail;
+  return fetchFileContents(parsedInputs, context, readFileSync, file);
 };
 
 const fetchFileContents = function (
@@ -76,7 +74,7 @@ const extractFiles = function ({ option, count, files }, context, fs) {
     context,
     fs
   );
-  return files.map(validateFile).map(x => x.error || x.fileContent).join(joinWith);
+  return files.map(validateFile).join(joinWith);
 };
 
 const runCommand = function (parsedInputs, context, fs) {
