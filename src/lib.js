@@ -9,24 +9,28 @@ const {
   showError
 } = require("./output.js");
 
+const getBounds = function (count, headOrTail) {
+  const bounds = {
+    head: { upper: count, lower: 0 },
+    tail: { upper: undefined, lower: -count }
+  };
+  return bounds[headOrTail];
+}
+
+
 const getNChars = function (fileContent, count, context) {
-  let limit = { upper: count, lower: 0 };
-  if (context == "tail") {
-    limit.lower = -count;
-  }
-  return getSubstr(fileContent, limit);
+  const bounds = getBounds(count,context);
+  return splitContent(fileContent, bounds, "");
 };
 
-const getNLines = function (fileContent, count, context) {
-  let limit = { upper: count, lower: 0 };
+const getNLines = function (fileContent, count, context ) {
   if (context == "tail") {
     if (+count === 0) {
       return "";
     }
-    limit.lower = -count;
-    limit.upper = undefined;
   }
-  return splitContent(fileContent, limit);
+  const bounds = getBounds(count, context);
+  return splitContent(fileContent, bounds, "\n");
 };
 
 const formatFileContent = function (parsedInputs, context, { existsSync, readFileSync }, file) {
